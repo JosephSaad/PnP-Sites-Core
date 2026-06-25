@@ -2788,6 +2788,40 @@ Rationale: Environments in Power Platform separate development from production w
 
       <!-- Left: Importer -->
       <div class="lg:col-span-3 space-y-5">
+
+        <!-- Exam Library -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <div class="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h2 class="text-lg font-bold text-slate-900">Exam Library</h2>
+              <p class="text-sm text-slate-500 mt-0.5">Choose which exam to practice or take. Add new exams and store each one as its own file.</p>
+            </div>
+            <span id="libCount" class="text-xs font-semibold text-slate-400"></span>
+          </div>
+
+          <div class="mt-4 flex items-center gap-2">
+            <select id="examSelect" class="flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-brand-400 outline-none"></select>
+            <button id="examDelete" title="Delete selected exam" class="px-3 py-2.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-sm">🗑</button>
+          </div>
+          <div id="examMeta" class="text-xs text-slate-400 mt-1.5 px-1"></div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100">
+            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Save the current bank to your library as a new exam</label>
+            <div class="flex gap-2">
+              <input id="examName" type="text" placeholder="New exam name…"
+                class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-brand-400 outline-none">
+              <button id="examSave" class="px-3 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 whitespace-nowrap">💾 Save</button>
+            </div>
+            <div class="mt-2.5 flex flex-wrap gap-2">
+              <button id="examNew" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">＋ New blank exam</button>
+              <button id="examExport" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">⬇ Export selected to file</button>
+              <button id="examImport" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">⬆ Import exam file</button>
+              <input id="examFile" type="file" accept=".json,.cbt,.txt" class="hidden">
+            </div>
+            <div id="examLibMsg" class="mt-2 text-xs hidden"></div>
+          </div>
+        </div>
+
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
           <div class="flex items-start justify-between gap-3 flex-wrap">
             <div>
@@ -3276,7 +3310,8 @@ const App = {
   weights: {},           // category -> percent
   mode: 'exam',
   examLen: 60,
-  test: null             // active test object
+  test: null,            // active test object
+  activeExamId: null     // id of the library exam currently loaded
 };
 
 /* ---------- element helpers ---------- */
@@ -3284,6 +3319,70 @@ const $ = sel => document.querySelector(sel);
 const $$ = sel => Array.from(document.querySelectorAll(sel));
 function el(tag, cls, html){ const e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+/* ============================================================================
+   EXAM LIBRARY — persistent store of whole exams (localStorage + file I/O)
+   Each exam is { id, name, text, count, categories, savedAt }. `text` is the
+   raw bank in the standard paste format and is the source of truth; counts are
+   derived via the parser. Persisted to localStorage with an in-memory fallback
+   for environments where localStorage is unavailable (e.g. some file:// cases).
+   ========================================================================== */
+const LS_KEY = 'cbt_studio_exams_v1';
+let _memLib = null;
+
+function loadLibrary(){
+  try{ const v = localStorage.getItem(LS_KEY); if(v!=null) return JSON.parse(v); }catch(e){}
+  return _memLib || [];
+}
+function saveLibrary(list){
+  _memLib = list;
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(list)); }catch(e){}
+}
+function examStats(text){
+  const r = parseBank(text);
+  return { count: r.questions.length, categories: r.categories.length, valid: r.errors.length===0, errors: r.errors };
+}
+function mkExam(name, text){
+  const st = examStats(text);
+  return { id: 'ex_'+Date.now()+'_'+Math.floor(Math.random()*1e5), name, text, count: st.count, categories: st.categories, savedAt: Date.now() };
+}
+// Insert (or update by name) an exam in the library; returns the exam.
+function addOrUpdateExam(name, text){
+  const lib = loadLibrary();
+  let ex = lib.find(e => e.name === name);
+  const st = examStats(text);
+  if(ex){ ex.text = text; ex.count = st.count; ex.categories = st.categories; ex.savedAt = Date.now(); }
+  else { ex = mkExam(name, text); lib.push(ex); }
+  saveLibrary(lib);
+  return ex;
+}
+function deleteExam(id){
+  const lib = loadLibrary().filter(e => e.id !== id);
+  saveLibrary(lib);
+  return lib;
+}
+// Seed the library with the built-in exams on first run.
+function seedLibrary(){
+  let lib = loadLibrary();
+  if(!lib.length){
+    const ab = document.getElementById('ab900-bank').textContent.trim();
+    lib = [ mkExam('Microsoft AB-900 Practice Bank', ab),
+            mkExam('Quick Sample (3 question types)', SAMPLE_TEXT) ];
+    saveLibrary(lib);
+  }
+  return lib;
+}
+
+const NEW_EXAM_TEMPLATE = `[Category: Section 1]
+[Type: Single]
+1. Write your question here?
+A) First option
+B) Second option
+C) Third option
+D) Fourth option
+Correct: A
+Rationale: Explain why the answer is correct.
+`;
 
 /* ============================================================================
    SETUP: parse handling
@@ -3353,6 +3452,105 @@ function doParse(){
   refreshStartButton();
 }
 function chip(label,n,cls){ return `<span class="text-xs font-bold px-2.5 py-1 rounded-full ${cls}">${esc(label)}: ${n}</span>`; }
+
+/* ============================================================================
+   EXAM LIBRARY — UI
+   ========================================================================== */
+function libMsg(text, kind){
+  const box = $('#examLibMsg');
+  if(!text){ box.classList.add('hidden'); box.textContent=''; return; }
+  box.className = 'mt-2 text-xs ' + (kind==='error' ? 'text-rose-600' : 'text-emerald-600');
+  box.textContent = text;
+  box.classList.remove('hidden');
+}
+
+function renderExamSelect(selectedId){
+  const lib = loadLibrary();
+  const sel = $('#examSelect');
+  sel.innerHTML = lib.length
+    ? lib.map(e => `<option value="${esc(e.id)}">${esc(e.name)} — ${e.count} q</option>`).join('')
+    : `<option value="">No exams saved</option>`;
+  if(selectedId && lib.some(e=>e.id===selectedId)) sel.value = selectedId;
+  $('#libCount').textContent = lib.length ? `${lib.length} exam${lib.length>1?'s':''} saved` : '';
+  updateExamMeta();
+}
+
+function updateExamMeta(){
+  const lib = loadLibrary();
+  const id = $('#examSelect').value;
+  const ex = lib.find(e => e.id === id);
+  const meta = $('#examMeta');
+  if(!ex){ meta.textContent=''; return; }
+  const when = new Date(ex.savedAt);
+  const stamp = isNaN(when) ? '' : ' · saved ' + when.toLocaleDateString();
+  meta.textContent = `${ex.count} questions · ${ex.categories} categor${ex.categories===1?'y':'ies'}${stamp}`;
+}
+
+// Load a library exam into the editor and parse it.
+function selectExam(id){
+  const lib = loadLibrary();
+  const ex = lib.find(e => e.id === id);
+  if(!ex) return;
+  App.activeExamId = id;
+  $('#bulkInput').value = ex.text;
+  $('#examSelect').value = id;
+  $('#examName').value = '';
+  App.weights = {};          // recompute weights for this exam's categories
+  doParse();
+  $('#bulkInput').scrollTop = 0;
+  updateExamMeta();
+  libMsg('');
+}
+
+// Ensure a built-in exists (re-seed if the user deleted it), then select it.
+function selectBuiltIn(name, text){
+  let ex = loadLibrary().find(e => e.name === name);
+  if(!ex) ex = addOrUpdateExam(name, text);
+  renderExamSelect(ex.id);
+  selectExam(ex.id);
+}
+
+// Download the selected exam as a standalone .cbt.json file.
+function exportSelectedExam(){
+  const ex = loadLibrary().find(e => e.id === $('#examSelect').value);
+  if(!ex){ libMsg('Select an exam to export.', 'error'); return; }
+  const payload = { format:'cbt-studio-exam', version:1, name:ex.name, savedAt:ex.savedAt, text:ex.text };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = el('a');
+  a.href = url;
+  a.download = ex.name.replace(/[^\w.-]+/g,'_').replace(/^_+|_+$/g,'') + '.cbt.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  libMsg(`Exported "${ex.name}" to ${a.download}.`, 'ok');
+}
+
+// Read an imported exam file (our JSON wrapper or a plain bank .txt) into the library.
+function importExamFile(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    let text, name = file.name.replace(/\.(cbt\.)?(json|txt|cbt)$/i, '');
+    const raw = String(reader.result);
+    try{
+      const data = JSON.parse(raw);
+      if(data && data.format === 'cbt-studio-exam' && typeof data.text === 'string'){
+        text = data.text; if(data.name) name = data.name;
+      } else if(typeof data === 'string'){ text = data; }
+      else { text = raw; }   // JSON but not our shape — treat raw as a bank
+    }catch(e){ text = raw; } // not JSON — treat as a plain-text bank
+    const st = examStats(text);
+    if(!st.count || !st.valid){
+      libMsg('Could not import: ' + (st.errors[0] ? `line ${st.errors[0].line} — ${st.errors[0].msg}` : 'no valid questions found in file.'), 'error');
+      return;
+    }
+    const ex = addOrUpdateExam(name, text);
+    renderExamSelect(ex.id);
+    selectExam(ex.id);
+    libMsg(`Imported "${ex.name}" (${st.count} questions).`, 'ok');
+  };
+  reader.onerror = () => libMsg('Could not read that file.', 'error');
+  reader.readAsText(file);
+}
 
 /* ============================================================================
    SETUP: weights
@@ -3943,8 +4141,11 @@ function setMode(m){
 }
 
 function init(){
-  // load sample
-  $('#bulkInput').value = SAMPLE_TEXT;
+  // Seed + render the exam library, then open the lightweight sample by default.
+  const lib = seedLibrary();
+  renderExamSelect();
+  const sample = lib.find(e => /Sample/i.test(e.name)) || lib[0];
+  $('#bulkInput').value = sample ? sample.text : SAMPLE_TEXT;
 
   // exam length sync (bounds: 1 .. pool size)
   const range = $('#examLen'), num = $('#examLenNum');
@@ -3965,17 +4166,55 @@ function init(){
   });
   $('#startBtn').addEventListener('click', startTest);
   $('#loadSampleBtn').addEventListener('click', ()=>{
-    $('#bulkInput').value=SAMPLE_TEXT;
-    App.weights = {};   // recompute weights for the sample's categories
-    doParse();          // reparse so App.parsed / Start button reflect the sample
-    $('#bulkInput').scrollTop = 0;
+    selectBuiltIn('Quick Sample (3 question types)', SAMPLE_TEXT);
   });
   $('#loadBankBtn').addEventListener('click', ()=>{
-    const bank = document.getElementById('ab900-bank').textContent.trim();
-    $('#bulkInput').value = bank;
-    App.weights = {}; // reset so even-distribution recomputes for new categories
+    selectBuiltIn('Microsoft AB-900 Practice Bank', document.getElementById('ab900-bank').textContent.trim());
+  });
+
+  // ---- Exam library controls ----
+  $('#examSelect').addEventListener('change', e=> selectExam(e.target.value));
+  $('#examSave').addEventListener('click', ()=>{
+    const name = $('#examName').value.trim();
+    if(!name){ libMsg('Enter a name to save this exam under.', 'error'); $('#examName').focus(); return; }
+    const text = $('#bulkInput').value;
+    const st = examStats(text);
+    if(!st.count || !st.valid){
+      libMsg('Fix the bank before saving: ' + (st.errors[0] ? `line ${st.errors[0].line} — ${st.errors[0].msg}` : 'no valid questions found.'), 'error');
+      return;
+    }
+    const existed = loadLibrary().some(e => e.name === name);
+    const ex = addOrUpdateExam(name, text);
+    App.activeExamId = ex.id;
+    renderExamSelect(ex.id);
+    $('#examName').value = '';
+    libMsg(`${existed ? 'Updated' : 'Saved'} "${name}" (${st.count} questions) to your library.`, 'ok');
+  });
+  $('#examNew').addEventListener('click', ()=>{
+    $('#bulkInput').value = NEW_EXAM_TEMPLATE;
+    $('#examName').value = '';
+    App.activeExamId = null;
+    App.weights = {};
     doParse();
-    $('#bulkInput').scrollTop = 0;
+    $('#bulkInput').focus();
+    libMsg('Blank exam template loaded. Paste your questions, then Save to the library.', 'ok');
+  });
+  $('#examExport').addEventListener('click', exportSelectedExam);
+  $('#examImport').addEventListener('click', ()=> $('#examFile').click());
+  $('#examFile').addEventListener('change', e=>{
+    const file = e.target.files[0];
+    if(file) importExamFile(file);
+    e.target.value = '';
+  });
+  $('#examDelete').addEventListener('click', ()=>{
+    const id = $('#examSelect').value;
+    const ex = loadLibrary().find(e => e.id === id);
+    if(!ex) return;
+    if(!confirm(`Delete the exam "${ex.name}" from your library? This cannot be undone.`)) return;
+    const lib = deleteExam(id);
+    if(lib.length){ renderExamSelect(lib[0].id); selectExam(lib[0].id); }
+    else { renderExamSelect(); App.activeExamId = null; }
+    libMsg(`Deleted "${ex.name}".`, 'ok');
   });
 
   // ---- Add-exam modal ----
@@ -4053,6 +4292,7 @@ function init(){
   });
 
   // initial parse so weights/start are ready
+  if(sample){ App.activeExamId = sample.id; renderExamSelect(sample.id); }
   doParse();
 }
 
