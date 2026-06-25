@@ -3499,7 +3499,8 @@ function buildTest(){
     seq: i+1,
     response: [],     // selected keys
     flagged: false,
-    visited: false
+    visited: false,
+    revealed: false   // practice-mode feedback shown for this question
   }));
 
   App.test = {
@@ -3576,8 +3577,10 @@ function renderQuestion(){
   const isMulti = q.type==='Multi';
   const inputType = isMulti ? 'checkbox' : 'radio';
   const practice = App.test.mode==='practice';
-  const answered = q.response.length>0;
-  const showFeedback = practice && answered;
+  // Feedback is gated on an explicit reveal so Multi questions can be fully
+  // selected first. Single/TrueFalse reveal on the (single) selection; Multi
+  // reveals only when the user clicks "Check answer".
+  const showFeedback = practice && q.revealed;
 
   const typeTag = {
     'Single':'<span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">SINGLE CHOICE</span>',
@@ -3617,6 +3620,13 @@ function renderQuestion(){
   const noteBanner = (App.test.idx===0 && App.test.notes.length) ?
     `<div class="mb-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 text-[12.5px] px-4 py-2">${esc(App.test.notes[0])}</div>` : '';
 
+  // In practice mode, Multi questions get a "Check answer" button so all
+  // checkboxes can be ticked before locking in and revealing feedback.
+  const checkBtn = (practice && isMulti && !q.revealed) ? `
+    <button id="checkAnsBtn" ${q.response.length ? '' : 'disabled'}
+      class="mt-3 px-4 py-2 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700 disabled:opacity-40 disabled:cursor-not-allowed">
+      Check answer</button>` : '';
+
   const feedbackBlock = showFeedback ? `
     <div class="mt-4 rounded-xl border ${isAnswerCorrect(q)?'border-emerald-200 bg-emerald-50':'border-rose-200 bg-rose-50'} p-4">
       <div class="font-bold text-sm ${isAnswerCorrect(q)?'text-emerald-700':'text-rose-700'}">
@@ -3633,6 +3643,7 @@ function renderQuestion(){
         <div class="mb-2">${typeTag}</div>
         <h3 class="text-[17px] font-semibold text-slate-900 leading-snug">${esc(q.stem)}</h3>
         <div class="mt-4 space-y-2.5">${optionsHtml}</div>
+        ${checkBtn}
         ${feedbackBlock}
       </div>
     </div>`;
@@ -3649,9 +3660,20 @@ function renderQuestion(){
       }
       updateStats();
       paintGridCell(App.test.idx);
-      if(App.test.mode==='practice'){ renderQuestion(); } // reveal feedback
+      if(practice){
+        // Single / TrueFalse: one click is the final answer -> reveal now.
+        // Multi: keep options editable; reveal happens via "Check answer".
+        if(!isMulti) q.revealed = true;
+        renderQuestion();
+      }
     });
   });
+
+  // "Check answer" reveals feedback for a completed Multi question.
+  const checkAnsBtn = body.querySelector('#checkAnsBtn');
+  if(checkAnsBtn){
+    checkAnsBtn.addEventListener('click', ()=>{ q.revealed = true; renderQuestion(); });
+  }
 }
 
 function isAnswerCorrect(q){
@@ -3885,7 +3907,12 @@ function init(){
     buildWeightFields(App.parsed.categories); refreshStartButton();
   });
   $('#startBtn').addEventListener('click', startTest);
-  $('#loadSampleBtn').addEventListener('click', ()=>{ $('#bulkInput').value=SAMPLE_TEXT; });
+  $('#loadSampleBtn').addEventListener('click', ()=>{
+    $('#bulkInput').value=SAMPLE_TEXT;
+    App.weights = {};   // recompute weights for the sample's categories
+    doParse();          // reparse so App.parsed / Start button reflect the sample
+    $('#bulkInput').scrollTop = 0;
+  });
   $('#loadBankBtn').addEventListener('click', ()=>{
     const bank = document.getElementById('ab900-bank').textContent.trim();
     $('#bulkInput').value = bank;
