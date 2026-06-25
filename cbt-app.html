@@ -2795,6 +2795,7 @@ Rationale: Environments in Power Platform separate development from production w
               <p class="text-sm text-slate-500 mt-0.5">Paste questions copied straight from a Word document. The parser auto-detects Single, Multi and True/False types.</p>
             </div>
             <div class="flex gap-2">
+              <button id="addExamBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200">＋ Add exam…</button>
               <button id="loadBankBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-brand-50 text-brand-700 hover:bg-brand-100 border border-brand-200">Load AB-900 Bank (300 Q)</button>
               <button id="loadSampleBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">Reset sample</button>
             </div>
@@ -2850,10 +2851,10 @@ Rationale: Subtract 5, then divide by 2.</pre>
           <!-- Exam length -->
           <div class="mt-4">
             <label class="block text-sm font-semibold text-slate-700">Exam length (total questions)</label>
-            <p class="text-xs text-slate-400 mb-2">Choose a target between 50 and 70.</p>
+            <p id="examLenHint" class="text-xs text-slate-400 mb-2">Choose any number from 1 to the size of your question pool.</p>
             <div class="flex items-center gap-3">
-              <input id="examLen" type="range" min="50" max="70" value="60" class="flex-1 accent-brand-600">
-              <input id="examLenNum" type="number" min="50" max="70" value="60" class="w-20 rounded-lg border border-slate-300 px-2 py-1.5 text-center font-semibold focus:ring-2 focus:ring-brand-400 outline-none">
+              <input id="examLen" type="range" min="1" max="70" value="60" class="flex-1 accent-brand-600">
+              <input id="examLenNum" type="number" min="1" max="70" value="60" class="w-20 rounded-lg border border-slate-300 px-2 py-1.5 text-center font-semibold focus:ring-2 focus:ring-brand-400 outline-none">
             </div>
           </div>
 
@@ -2964,6 +2965,38 @@ Rationale: Subtract 5, then divide by 2.</pre>
   <!-- ====================================================================== -->
   <section id="resultsScreen" class="hidden fade-in"></section>
 </main>
+
+<!-- ============ Add-exam modal ============ -->
+<div id="addExamModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div id="addExamBackdrop" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"></div>
+  <div class="relative bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-2xl max-h-[90vh] flex flex-col">
+    <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+      <div>
+        <h3 class="font-bold text-slate-900">Add another exam to the bank</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Paste questions from another exam — they are appended to your current bank, not replaced.</p>
+      </div>
+      <button id="addExamClose" class="text-slate-400 hover:text-slate-700 text-2xl leading-none">&times;</button>
+    </div>
+    <div class="p-5 overflow-y-auto space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700">Category name <span class="font-normal text-slate-400">(optional)</span></label>
+        <p class="text-xs text-slate-400 mb-1.5">If your pasted text has no <code class="px-1 bg-slate-100 rounded">[Category: …]</code> header, the questions are grouped under this name. Leave blank if your paste already declares categories.</p>
+        <input id="addExamCategory" type="text" placeholder="e.g. AZ-900 Cloud Concepts"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-brand-400 outline-none">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Exam questions</label>
+        <textarea id="addExamInput" spellcheck="false" placeholder="[Type: Single]&#10;1. Question text?&#10;A) ...&#10;B) ...&#10;Correct: A&#10;Rationale: ..."
+          class="w-full h-56 rounded-xl border border-slate-300 bg-slate-50 p-3 font-mono text-[12.5px] leading-relaxed focus:ring-2 focus:ring-brand-400 outline-none resize-y"></textarea>
+        <div id="addExamPreview" class="mt-2 text-xs hidden"></div>
+      </div>
+    </div>
+    <div class="px-5 py-4 border-t border-slate-100 flex items-center justify-end gap-2">
+      <button id="addExamCancel" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm hover:bg-slate-50">Cancel</button>
+      <button id="addExamConfirm" class="px-4 py-2 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700">Append to bank</button>
+    </div>
+  </div>
+</div>
 
 <footer class="max-w-7xl mx-auto px-4 sm:px-6 py-8 text-center text-xs text-slate-400">
   CBT Studio · single-file build · paste-from-Word parser, weighted randomization &amp; review engine.
@@ -3316,6 +3349,7 @@ function doParse(){
   }
 
   buildWeightFields(ok ? result.categories : []);
+  refreshExamLenBounds();
   refreshStartButton();
 }
 function chip(label,n,cls){ return `<span class="text-xs font-bold px-2.5 py-1 rounded-full ${cls}">${esc(label)}: ${n}</span>`; }
@@ -3391,6 +3425,33 @@ function poolCounts(){
     pools[c]=(pools[c]||0)+1;
   });
   return pools;
+}
+
+/* ============================================================================
+   SETUP: exam length (1 .. pool size)
+   ========================================================================== */
+function poolTotal(){
+  return (App.parsed && App.parsed.questions) ? App.parsed.questions.length : 0;
+}
+function syncLen(v){
+  const max = Math.max(1, poolTotal() || 70);
+  v = Math.max(1, Math.min(max, parseInt(v) || 1));
+  const range = $('#examLen'), num = $('#examLenNum');
+  range.value = v; num.value = v; App.examLen = v;
+  refreshStartButton();
+}
+// Keep the slider/number max in step with the parsed pool and re-clamp.
+function refreshExamLenBounds(){
+  const max = Math.max(1, poolTotal() || 70);
+  const range = $('#examLen'), num = $('#examLenNum');
+  range.max = max; num.max = max;
+  const hint = $('#examLenHint');
+  if(hint){
+    hint.textContent = poolTotal()
+      ? `Choose any number from 1 to ${max} (your pool has ${max} question${max>1?'s':''}).`
+      : 'Parse a bank to set the available range.';
+  }
+  syncLen(App.examLen); // re-clamp current value to the new max
 }
 
 /* ============================================================================
@@ -3885,12 +3946,8 @@ function init(){
   // load sample
   $('#bulkInput').value = SAMPLE_TEXT;
 
-  // exam length sync
+  // exam length sync (bounds: 1 .. pool size)
   const range = $('#examLen'), num = $('#examLenNum');
-  function syncLen(v){
-    v = Math.max(50, Math.min(70, parseInt(v)||60));
-    range.value=v; num.value=v; App.examLen=v; refreshStartButton();
-  }
   range.addEventListener('input', e=>syncLen(e.target.value));
   num.addEventListener('input', e=>syncLen(e.target.value));
   num.addEventListener('blur', e=>syncLen(e.target.value));
@@ -3919,6 +3976,60 @@ function init(){
     App.weights = {}; // reset so even-distribution recomputes for new categories
     doParse();
     $('#bulkInput').scrollTop = 0;
+  });
+
+  // ---- Add-exam modal ----
+  function openAddExam(){
+    $('#addExamInput').value = '';
+    $('#addExamCategory').value = '';
+    $('#addExamPreview').classList.add('hidden');
+    $('#addExamModal').classList.remove('hidden');
+    $('#addExamCategory').focus();
+  }
+  function closeAddExam(){ $('#addExamModal').classList.add('hidden'); }
+  $('#addExamBtn').addEventListener('click', openAddExam);
+  $('#addExamClose').addEventListener('click', closeAddExam);
+  $('#addExamCancel').addEventListener('click', closeAddExam);
+  $('#addExamBackdrop').addEventListener('click', closeAddExam);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('#addExamModal').classList.contains('hidden')) closeAddExam(); });
+
+  $('#addExamConfirm').addEventListener('click', ()=>{
+    const extra = $('#addExamInput').value.trim();
+    const preview = $('#addExamPreview');
+    if(!extra){
+      preview.className='mt-2 text-xs text-rose-600';
+      preview.textContent='Paste some questions first.';
+      preview.classList.remove('hidden');
+      return;
+    }
+    const catName = $('#addExamCategory').value.trim();
+    // Prepend a category header only if the user named one AND the paste
+    // doesn't already declare its own category.
+    let block = extra;
+    if(catName && !/^\s*\[\s*category\s*:/i.test(extra)){
+      block = `[Category: ${catName}]\n${extra}`;
+    }
+    // Validate the combined bank before committing so we never append text
+    // that breaks parsing.
+    const cur = $('#bulkInput').value.replace(/\s+$/,'');
+    const merged = (cur ? cur + '\n\n' : '') + block + '\n';
+    const before = App.parsed ? App.parsed.questions.length : 0;
+    const test = parseBank(merged);
+    if(test.errors.length){
+      preview.className='mt-2 text-xs text-rose-600';
+      preview.innerHTML = `Could not add — the merged bank has ${test.errors.length} validation error(s), e.g. line ${test.errors[0].line}: ${esc(test.errors[0].msg)}`;
+      preview.classList.remove('hidden');
+      return;
+    }
+    // Commit
+    $('#bulkInput').value = merged;
+    App.weights = {}; // redistribute evenly across the new category set
+    doParse();
+    const added = (App.parsed.questions.length - before);
+    closeAddExam();
+    // brief confirmation in the parse status line
+    $('#parseStatus').textContent = `✓ Added ${added} question${added!==1?'s':''} — ${App.parsed.questions.length} total, ${App.parsed.categories.length} categories`;
+    $('#parseStatus').className = 'text-sm font-medium text-emerald-600';
   });
 
   // test nav
