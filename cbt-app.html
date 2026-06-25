@@ -1,0 +1,3924 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CBT Studio — Word-Paste Computer-Based Testing Engine</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: { 50:'#eef6ff',100:'#d9eaff',200:'#bcd9ff',300:'#8ec1ff',400:'#599fff',500:'#2f7bf6',600:'#175fe0',700:'#124bb8',800:'#153f93',900:'#163874',950:'#102348' },
+        },
+        fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] },
+      }
+    }
+  }
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  html,body{font-family:'Inter',system-ui,sans-serif;}
+  .fade-in{animation:fade .35s ease both;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+  ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+  textarea{tab-size:2}
+  .grid-cell{transition:all .12s ease}
+</style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
+
+<!-- ============ Embedded AB-900 question bank (raw paste format) ============ -->
+<script type="text/plain" id="ab900-bank">[Category: Domain 1: Core M365 Features & Objects]
+[Type: Single]
+1. Which Microsoft 365 admin center is used to configure organization-wide settings such as verified domain names and the organization's release preferences?
+A) The Exchange admin center
+B) The Microsoft 365 admin center
+C) The SharePoint admin center
+D) The Teams admin center
+Correct: B
+Rationale: Domain names, organization profile, and release settings are managed centrally in the Microsoft 365 admin center. (Reference: Microsoft 365 admin center help)
+
+[Type: Single]
+2. A user is assigned a license that does not include Exchange Online. What is the most direct effect of that license assignment?
+A) The user's existing mailbox is converted to a shared mailbox
+B) The user is automatically blocked from signing in
+C) The user cannot be issued an Exchange Online mailbox
+D) The user is removed from all Microsoft 365 groups
+Correct: C
+Rationale: License contents determine which services a user can access; without an Exchange Online plan, no Exchange mailbox is provisioned. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+3. Which object would you create in the Exchange admin center to send a single email to a fixed list of recipients who do not need a shared mailbox?
+A) A SharePoint site
+B) A Teams channel
+C) A Microsoft 365 group with a shared mailbox
+D) A distribution list (distribution group)
+Correct: D
+Rationale: Distribution lists are managed in the Exchange admin center and route a message to all members of the group. (Reference: Exchange admin center in Exchange Online)
+
+[Type: Multi]
+4. Which objects are part of Microsoft SharePoint Online? Choose three.
+A) Sites
+B) Document libraries
+C) Folders within libraries
+D) Conditional access policies
+E) Exchange transport rules
+Correct: A, B, C
+Rationale: Sites, document libraries, and folders are all objects within SharePoint Online; conditional access policies are managed in Microsoft Entra and mail flow rules in Exchange. (Reference: About the SharePoint admin role)
+
+[Type: Single]
+5. Which SharePoint permission level allows a user to view, add, update, and delete list items and documents, but not manage permissions or site settings?
+A) Edit
+B) Read
+C) Full Control
+D) View Only
+Correct: A
+Rationale: The Edit permission level grants content contribution and management without site administration rights. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+6. In the Teams admin center, which object is used to control whether members in a particular team can create private channels?
+A) A sensitivity label scope
+B) A Teams policy
+C) An Exchange mail flow rule
+D) A retention label
+Correct: B
+Rationale: Teams policies in the Teams admin center govern features such as channel creation and meeting options. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+7. What is the primary purpose of assigning licenses to a group rather than to individual users?
+A) It reduces the total number of licenses the organization must buy
+B) It converts the group into a security group
+C) Licenses are applied automatically to all current and future members of the group
+D) It prevents a member's license from being removed when they leave the group
+Correct: C
+Rationale: Group-based licensing assigns and removes licenses automatically as membership changes. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+8. An administrator needs every member of the Finance department to receive a Microsoft 365 Copilot license with the least ongoing manual effort as people join and leave the department. Which approach should they use?
+A) Assign the license to each user manually each month
+B) Create a distribution list and license the list
+C) Assign the license to the Finance manager to share with the department
+D) Assign the Copilot license to the Finance security group by using group-based licensing
+Correct: D
+Rationale: Group-based licensing keeps assignments synchronized with membership, minimizing manual work. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+9. Which Microsoft 365 object is a security principal that can be granted access to resources and can have licenses assigned to it?
+A) A user account
+B) A document library
+C) A retention label
+D) A site column
+Correct: A
+Rationale: A user account is a security principal in Microsoft Entra ID that receives licenses and access. (Reference: What is Microsoft Entra ID)
+
+[Type: Single]
+10. A team in Microsoft Teams is backed by which Microsoft 365 object that also provides a mailbox and a SharePoint site?
+A) A distribution list
+B) A Microsoft 365 group
+C) A dynamic distribution group
+D) A mail-enabled security group
+Correct: B
+Rationale: Each team is connected to a Microsoft 365 group, which provisions a shared mailbox and a SharePoint team site. (Reference: Manage teams in the Teams admin center)
+
+[Type: Multi]
+11. Which statements about Microsoft 365 groups are correct? Choose two.
+A) A Microsoft 365 group can provide membership for a team, a SharePoint site, and a shared mailbox
+B) Adding a member to the group can grant access to the connected SharePoint site
+C) A Microsoft 365 group cannot be used with Microsoft Teams
+D) A Microsoft 365 group disables all conditional access
+Correct: A, B
+Rationale: Microsoft 365 groups unify membership across Teams, SharePoint, and Exchange resources. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+12. Where would an administrator go to convert a shared mailbox configuration or manage mailbox permissions?
+A) The SharePoint admin center
+B) The Power Platform admin center
+C) The Exchange admin center
+D) The Microsoft Purview portal
+Correct: C
+Rationale: Mailbox objects and permissions are managed in the Exchange admin center. (Reference: Exchange admin center in Exchange Online)
+
+[Type: Single]
+13. Which statement best describes a SharePoint document library?
+A) A mailbox used for email
+B) A conditional access control
+C) A Microsoft Entra role
+D) A container within a site that stores files and their metadata
+Correct: D
+Rationale: A document library is a SharePoint container for files, versions, and associated columns. (Reference: About the SharePoint admin role)
+
+[Type: Single]
+14. An administrator wants to apply a consistent meeting recording policy to all users in the organization. Which admin center should they use?
+A) The Teams admin center
+B) The Exchange admin center
+C) The SharePoint admin center
+D) The Microsoft Entra admin center
+Correct: A
+Rationale: Meeting and messaging policies for Teams are configured in the Teams admin center. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+15. Which permission level should be granted to allow a user to read content on a SharePoint site without the ability to change it?
+A) Edit
+B) Read
+C) Design
+D) Full Control
+Correct: B
+Rationale: The Read permission level provides view access without contribution rights. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+16. A new compliance project requires a dedicated SharePoint site, a shared mailbox, and a Teams workspace for the same group of 12 people. What is the most efficient way to provision membership across all three?
+A) Create three unrelated objects and manage membership separately
+B) Create a distribution list only
+C) Create a team, which provisions a Microsoft 365 group connected to a site and a mailbox
+D) Create a security group and a retention label
+Correct: C
+Rationale: Creating a team establishes a Microsoft 365 group that links the site, mailbox, and workspace under one membership. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+17. Which of the following determines whether a user can access a specific Microsoft 365 workload such as Power BI or Microsoft 365 Copilot?
+A) The Microsoft Entra directory role assigned to the user
+B) The number of groups the user belongs to
+C) The user's most recent sign-in date
+D) The service plans contained in the user's assigned licenses
+Correct: D
+Rationale: Access to each workload is governed by the corresponding service plan within the assigned license. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Multi]
+18. Which tasks are appropriate to perform in the Exchange admin center? Choose two.
+A) Manage mailboxes
+B) Create SharePoint sites
+C) Create distribution lists
+D) Configure Conditional Access
+Correct: A, C
+Rationale: Mailboxes and distribution lists are Exchange objects managed in the Exchange admin center. (Reference: Exchange admin center in Exchange Online)
+
+[Type: Single]
+19. Which SharePoint object would you target to grant access scoped to a single set of files rather than the whole site?
+A) A specific document library or folder
+B) The tenant root
+C) A Microsoft Entra role
+D) A Teams policy
+Correct: A
+Rationale: Permissions can be scoped to a library or folder to limit access to a subset of site content. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+20. What is the role of the Microsoft 365 admin center in relation to the workload-specific admin centers?
+A) It replaces the need for any workload admin centers
+B) It provides central administration and links to the specialized admin centers
+C) It only manages billing and nothing else
+D) It is available only to Microsoft support engineers
+Correct: B
+Rationale: The Microsoft 365 admin center is the central console that also provides access to Exchange, SharePoint, Teams, and other consoles. (Reference: Microsoft 365 admin center help)
+
+[Type: Single]
+21. Which object grants the highest level of control over a SharePoint site, including managing permissions and site settings?
+A) Edit
+B) Read
+C) Full Control
+D) View Only
+Correct: C
+Rationale: Full Control is the permission level that includes site administration and permission management. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+22. Helpdesk reports that a user can sign in but cannot access Microsoft 365 Copilot features. The user's account is active and licensed for Microsoft 365. What should you verify first?
+A) That the user has signed in at least once in the last 30 days
+B) That the user is a global administrator
+C) That the tenant has a verified domain
+D) That the user's license includes the Microsoft 365 Copilot service plan and that it is enabled
+Correct: D
+Rationale: Workload access depends on the relevant service plan being present and enabled in the user's license. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+23. Which admin center is used to manage the policies that control app permission and setup for Teams meetings and messaging?
+A) The Teams admin center
+B) The Microsoft Purview portal
+C) The Exchange admin center
+D) The SharePoint admin center
+Correct: A
+Rationale: Teams app, meeting, and messaging policies are configured in the Teams admin center. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+24. An organization wants to remove a license from all members of a department at once. Which method achieves this most efficiently?
+A) Remove each user from the tenant's default license assignment
+B) Remove the license assignment from the group used for group-based licensing
+C) Block sign-in for each affected user
+D) Delete the security group entirely
+Correct: B
+Rationale: Removing a group's license assignment revokes it from all members automatically. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Multi]
+25. Which of the following are valid SharePoint permission levels? Choose three.
+A) Read
+B) Edit
+C) Conditional
+D) Full Control
+E) Privileged
+Correct: A, B, D
+Rationale: Read, Edit, and Full Control are standard SharePoint permission levels; the others are not. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+26. In Microsoft 365, which object is best suited to send announcements to a large, relatively static set of recipients without a shared inbox?
+A) A SharePoint library
+B) A conditional access policy
+C) A distribution list
+D) A retention label
+Correct: C
+Rationale: Distribution lists deliver messages to all members and are managed in Exchange. (Reference: Exchange admin center in Exchange Online)
+
+[Type: Single]
+27. Which statement about Teams channels is accurate?
+A) Channel files are stored in the Exchange mailbox
+B) Channels cannot store files
+C) Channel files are stored only on the user's device
+D) Standard channel files are stored in the team's connected SharePoint site
+Correct: D
+Rationale: Standard channel files reside in the SharePoint site that backs the team. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+28. A site owner needs to delegate the ability to edit content but not change site permissions. Which permission level fits?
+A) Edit
+B) Full Control
+C) Read
+D) Owner of the tenant
+Correct: A
+Rationale: Edit allows content changes while withholding permission management. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+29. An administrator must ensure that when employees move from the Sales group to the Support group, their Microsoft 365 service access updates automatically. Which design supports this with minimal manual effort?
+A) Assign licenses per user and update them by hand on each move
+B) Assign licenses to the Sales and Support groups and manage department membership
+C) Use a distribution list for licensing
+D) Assign the license directly to the department's manager
+Correct: B
+Rationale: Group-based licensing tied to department membership updates access automatically on a move. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+30. Which Microsoft 365 admin surface would you use to add and verify a custom domain such as contoso.com?
+A) The Teams admin center
+B) The SharePoint admin center
+C) The Microsoft 365 admin center
+D) The Microsoft Purview portal
+Correct: C
+Rationale: Custom domains are added and verified in the Microsoft 365 admin center. (Reference: Microsoft 365 admin center help)
+
+[Type: Single]
+31. Which object type is created automatically to support a new team and provides its membership, mailbox, and site?
+A) A mail-enabled security group
+B) A dynamic distribution group
+C) A conditional access policy
+D) A Microsoft 365 group
+Correct: D
+Rationale: A Microsoft 365 group underpins a team and provisions its associated resources. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+32. What distinguishes a security group from a distribution list in Microsoft 365?
+A) A security group can be used to grant access to resources, while a distribution list is primarily for email distribution
+B) A distribution list can be assigned licenses but a security group cannot
+C) A distribution list can be used to grant access to SharePoint resources
+D) They are identical in function
+Correct: A
+Rationale: Security groups are used for access control; distribution lists are for email delivery. (Reference: What is Microsoft Entra ID)
+
+[Type: Multi]
+33. Which of the following can a Microsoft 365 group provide? Choose three.
+A) A shared mailbox
+B) A conditional access policy
+C) A SharePoint team site
+D) A Microsoft Entra tenant
+E) Membership for a team in Microsoft Teams
+Correct: A, C, E
+Rationale: Microsoft 365 groups link a mailbox, a site, and Teams membership; they do not create policies or tenants. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+34. Which permission level is most appropriate for an auditor who must read documents but must never modify them?
+A) Edit
+B) Read
+C) Design
+D) Full Control
+Correct: B
+Rationale: Read provides view-only access suitable for audit scenarios. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+35. Which admin center would you use to set a policy that prevents external participants from a specific category of Teams meetings?
+A) The Exchange admin center
+B) The SharePoint admin center
+C) The Teams admin center
+D) The Microsoft Entra admin center
+Correct: C
+Rationale: External access and meeting controls for Teams are configured in the Teams admin center. (Reference: Manage teams in the Teams admin center)
+
+[Type: Single]
+36. What happens to a user's assigned licenses if the user account is deleted and then restored within the recovery window?
+A) Licenses are permanently lost
+B) The account must be recreated and relicensed from scratch
+C) The user's group memberships cannot be recovered
+D) Licenses and access can be restored along with the account
+Correct: D
+Rationale: Restoring a soft-deleted account within the window can recover its licenses and access. (Reference: Microsoft 365 admin center help)
+
+[Type: Single]
+37. Which object should an administrator configure to store and organize project files with versioning in SharePoint?
+A) A document library
+B) A distribution list
+C) A conditional access policy
+D) A retention label only
+Correct: A
+Rationale: Document libraries store files with version history and metadata. (Reference: About the SharePoint admin role)
+
+[Type: Multi]
+38. Which administrative consoles are commonly used together to manage Microsoft 365 workloads? Choose three.
+A) An individual user's OneDrive settings page
+B) Microsoft 365 admin center
+C) Exchange admin center
+D) SharePoint admin center
+E) A local Active Directory snap-in
+Correct: B, C, D
+Rationale: The Microsoft 365, Exchange, and SharePoint admin centers are core cloud consoles for managing workloads. (Reference: Microsoft 365 admin center help)
+
+[Type: Single]
+39. A department wants its files surfaced by Microsoft 365 Copilot only for its own members. As a foundation, which SharePoint configuration supports this requirement?
+A) Grant Everyone Read access to the site
+B) Scope site and library permissions so only department members have access
+C) Remove all permissions from the site
+D) Disable the Microsoft 365 group
+Correct: B
+Rationale: Copilot honors SharePoint permissions, so scoping access to members is the foundational control. (Reference: Understanding permission levels in SharePoint)
+
+[Type: Single]
+40. Which type of group in Microsoft 365 provides a shared mailbox, calendar, SharePoint site, and a Planner when it is created?
+A) A mail-enabled security group
+B) A distribution list
+C) A Microsoft 365 group
+D) A dynamic distribution group
+Correct: C
+Rationale: A Microsoft 365 group provisions a connected set of resources including a mailbox, calendar, SharePoint site, and Planner. (Reference: Learn about Microsoft 365 groups)
+
+[Type: Single]
+41. Which statement best captures the Zero Trust principle of 'verify explicitly'?
+A) Trust any request originating from the corporate network
+B) Grant permanent administrative access to reduce friction
+C) Disable multifactor authentication for internal users
+D) Always authenticate and authorize based on all available signals
+Correct: D
+Rationale: Verify explicitly means evaluating identity, device, location, and risk signals on every request. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+42. The Zero Trust principle of 'use least privilege access' is best implemented by which practice?
+A) Granting just-enough and just-in-time access with risk-based policies
+B) Giving every user global administrator rights
+C) Sharing a single admin account across the team
+D) Allowing standing access to all resources
+Correct: A
+Rationale: Least privilege limits access to what is needed, for as long as needed, supported by JIT and JEA. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+43. Which Zero Trust principle assumes that a breach may already have occurred and emphasizes segmentation and analytics?
+A) Trust the perimeter
+B) Assume breach
+C) Verify once
+D) Grant broadly
+Correct: B
+Rationale: Assume breach drives segmentation, end-to-end verification, and use of analytics to detect threats. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+44. What is authentication?
+A) The process of determining what a verified identity is allowed to do
+B) The process of encrypting files at rest
+C) The process of verifying the identity of a user or service
+D) The process of auditing user sign-in activity
+Correct: C
+Rationale: Authentication confirms identity; authorization determines permissions. (Reference: Authentication vs authorization)
+
+[Type: Single]
+45. What is authorization?
+A) Verifying the identity of a user
+B) Confirming a user's password at sign-in
+C) Encrypting data while it is in transit
+D) Determining what an authenticated identity is permitted to access
+Correct: D
+Rationale: Authorization governs access rights after authentication has succeeded. (Reference: Authentication vs authorization)
+
+[Type: Multi]
+46. Which factors are examples of multifactor authentication methods? Choose three.
+A) Something you know, such as a password
+B) Something you locate, such as your GPS position
+C) Something you configure, such as a device setting
+D) Something you have, such as an authenticator app
+E) Something you are, such as a fingerprint
+Correct: A, D, E
+Rationale: MFA combines factors from different categories: knowledge, possession, and inherence. (Reference: How multifactor authentication works)
+
+[Type: Single]
+47. Why does multifactor authentication reduce the risk of account compromise?
+A) An attacker must satisfy more than one independent factor, not just a stolen password
+B) It requires the user to change their password more often
+C) It blocks all sign-ins from outside the country
+D) It deletes risky sign-ins automatically
+Correct: A
+Rationale: Requiring multiple independent factors makes a stolen password insufficient on its own. (Reference: How multifactor authentication works)
+
+[Type: Single]
+48. Which Microsoft solution provides extended detection and response across identities, endpoints, email, and applications?
+A) Microsoft Entra Connect
+B) Microsoft Defender XDR
+C) Microsoft Purview Compliance Manager
+D) Microsoft Intune
+Correct: B
+Rationale: Microsoft Defender XDR unifies signals and response across multiple domains. (Reference: Microsoft Defender XDR overview)
+
+[Type: Multi]
+49. Which workloads does Microsoft Defender XDR help protect? Choose three.
+A) On-premises file server backups
+B) Identities
+C) Network router configuration
+D) Endpoints
+E) Email and collaboration
+Correct: B, D, E
+Rationale: Defender XDR correlates threat signals across identities, endpoints, and email and collaboration. (Reference: Microsoft Defender XDR overview)
+
+[Type: Single]
+50. What is the purpose of threat intelligence in a security platform?
+A) To block all inbound email by default
+B) To encrypt files that contain sensitive data
+C) To provide context about known threats so defenders can detect and respond faster
+D) To automatically patch operating systems
+Correct: C
+Rationale: Threat intelligence supplies indicators and context that improve detection and response. (Reference: Microsoft Defender XDR overview)
+
+[Type: Single]
+51. A company adopts Zero Trust and wants to stop implicitly trusting devices simply because they are on the office network. Which control most directly supports this goal?
+A) Open all firewall ports on the internal network
+B) Grant all internal users local administrator rights
+C) Disable sign-in logging
+D) Require device compliance and identity verification for access through Conditional Access
+Correct: D
+Rationale: Verifying identity and device state on every request replaces implicit network trust. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+52. Which statement reflects 'assume breach' thinking when designing access?
+A) Limit blast radius by segmenting access and verifying end to end
+B) Assume the network is always safe
+C) Provide permanent broad access to speed work
+D) Log nothing to reduce overhead
+Correct: A
+Rationale: Assume breach focuses on containment, segmentation, and continuous verification. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+53. Which is an example of an authentication method rather than an authorization decision?
+A) Granting a user the Edit permission on a library
+B) Verifying a one-time passcode from an authenticator app
+C) Adding a user to a SharePoint group
+D) Allowing access to a specific mailbox
+Correct: B
+Rationale: Verifying a passcode confirms identity; the others assign or evaluate permissions. (Reference: Authentication vs authorization)
+
+[Type: Multi]
+54. Which practices align with the Zero Trust model? Choose three.
+A) Trust all traffic from internal subnets
+B) Use one shared administrator credential
+C) Verify explicitly using multiple signals
+D) Apply least privilege access
+E) Assume breach and segment access
+Correct: C, D, E
+Rationale: The three Zero Trust pillars are verify explicitly, least privilege, and assume breach. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+55. Phishing-resistant authentication primarily strengthens which security objective?
+A) Simplified password recovery for users
+B) A reduced number of sign-in prompts
+C) Reliable verification of user identity
+D) Faster onboarding of new employees
+Correct: C
+Rationale: Stronger, phishing-resistant methods improve identity verification, a core Zero Trust goal. (Reference: How multifactor authentication works)
+
+[Type: Single]
+56. What is the main benefit of consolidating security signals into an extended detection and response platform?
+A) Lower data storage requirements
+B) Elimination of the need for endpoint antivirus
+C) Automatic resolution of every alert without review
+D) Correlated detections and coordinated response across domains
+Correct: D
+Rationale: Correlating signals across domains improves detection quality and response speed. (Reference: Microsoft Defender XDR overview)
+
+[Type: Single]
+57. An incident responder must understand an attack that began with a phishing email, moved to an endpoint, and then attempted lateral movement using a compromised identity. Which capability is designed to correlate these stages?
+A) Microsoft Defender XDR cross-domain incident correlation
+B) A Microsoft Entra Conditional Access policy
+C) A Microsoft Purview retention policy
+D) A network firewall rule
+Correct: A
+Rationale: Defender XDR correlates related alerts across email, endpoint, and identity into a single incident. (Reference: Microsoft Defender XDR overview)
+
+[Type: Single]
+58. Which description matches 'just-in-time' access?
+A) Access is granted permanently to avoid requests
+B) Access is granted only for the period it is needed and then removed
+C) Access is shared among many users
+D) Access is never logged
+Correct: B
+Rationale: Just-in-time access provisions rights temporarily, supporting least privilege. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+59. Why is logging and monitoring emphasized under the assume breach principle?
+A) It increases storage costs without benefit
+B) It replaces the need for authentication
+C) Visibility into activity enables detection and faster response to threats
+D) It disables Conditional Access
+Correct: C
+Rationale: Telemetry and analytics support detection and response when a breach is assumed. (Reference: Zero Trust security model overview)
+
+[Type: Multi]
+60. Which statements about authentication and authorization are correct? Choose two.
+A) Authentication establishes who the user is
+B) Authentication grants file permissions
+C) Authorization verifies the user's password
+D) Authorization decides what the user can do
+Correct: A, D
+Rationale: Authentication proves identity; authorization assigns and evaluates access rights. (Reference: Authentication vs authorization)
+
+[Type: Single]
+61. A security team wants to reduce reliance on passwords. Which approach aligns with strengthening authentication?
+A) Increase password expiration to one day
+B) Reuse a single password across services
+C) Disable multifactor authentication
+D) Adopt passwordless or phishing-resistant methods such as passkeys
+Correct: D
+Rationale: Passwordless and phishing-resistant methods improve identity assurance. (Reference: How multifactor authentication works)
+
+[Type: Single]
+62. Which best describes the relationship between Zero Trust and conditional access controls?
+A) Conditional access enforces Zero Trust by evaluating signals before granting access
+B) Conditional access disables Zero Trust
+C) Zero Trust removes the need for any access policy
+D) They are unrelated concepts
+Correct: A
+Rationale: Conditional access is a primary enforcement point for Zero Trust verification. (Reference: Conditional Access overview)
+
+[Type: Single]
+63. What does 'verify end to end' contribute to a Zero Trust strategy?
+A) Only the first login is checked
+B) Each segment of a session is validated rather than trusting an initial check alone
+C) Verification is skipped for internal apps
+D) All verification is delegated to the user
+Correct: B
+Rationale: End-to-end verification re-evaluates trust throughout a session. (Reference: Zero Trust security model overview)
+
+[Type: Multi]
+64. Which capabilities support threat protection in Microsoft 365? Choose two.
+A) Automatic creation of SharePoint libraries
+B) Detection of malicious activity across email and endpoints
+C) Correlation of alerts into incidents
+D) Assignment of Microsoft 365 licenses
+Correct: B, C
+Rationale: Threat protection focuses on detecting malicious activity and correlating it into incidents. (Reference: Microsoft Defender XDR overview)
+
+[Type: Single]
+65. Which principle would justify removing standing global administrator assignments in favor of activating the role only when required?
+A) Trust the perimeter
+B) Maximize convenience
+C) Least privilege access
+D) Disable monitoring
+Correct: C
+Rationale: Activating elevated roles only when needed reflects least privilege. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+66. Why is 'assume breach' considered a design assumption rather than a statement of failure?
+A) It means the organization has been hacked today
+B) It removes the need for prevention
+C) It applies only after an incident
+D) It guides architecture toward containment and resilience regardless of current state
+Correct: D
+Rationale: Assume breach is a proactive design stance focused on limiting impact. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+67. An organization grants broad access to speed onboarding but later struggles to contain an incident. Which Zero Trust adjustment most directly addresses the containment gap?
+A) Apply least privilege and segment access so a compromise affects fewer resources
+B) Grant additional standing permissions
+C) Disable sign-in logs to reduce noise
+D) Trust all internal devices by default
+Correct: A
+Rationale: Least privilege and segmentation reduce blast radius, improving containment. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+68. Within the Zero Trust model, what does the principle of verifying explicitly require before access is granted?
+A) Trust any request that originates from inside the corporate network
+B) Authenticate and authorize based on all available data points, including identity, location, and device health
+C) Grant access whenever a valid password is supplied
+D) Allow access first and review the activity logs afterward
+Correct: B
+Rationale: Verify explicitly means every access decision is based on all available signals rather than network location alone. (Reference: Zero Trust security model overview)
+
+[Type: Single]
+69. Which Microsoft service is the cloud-based identity and access management solution that authenticates users for Microsoft 365?
+A) Microsoft Purview
+B) Microsoft Defender for Endpoint
+C) Microsoft Entra ID
+D) Microsoft Intune
+Correct: C
+Rationale: Microsoft Entra ID provides identity and access management for Microsoft 365. (Reference: What is Microsoft Entra ID)
+
+[Type: Single]
+70. What does a Conditional Access policy evaluate to decide whether to grant, block, or require additional controls for access?
+A) Only the time of day
+B) The age of the user's account
+C) The user's display language
+D) Signals such as user, device, location, application, and risk
+Correct: D
+Rationale: Conditional Access uses signals to make an access decision and apply controls. (Reference: Building Conditional Access policies)
+
+[Type: Single]
+71. What is the primary benefit of single sign-on for users?
+A) Users authenticate once and gain access to multiple applications without repeated sign-in
+B) Users no longer need to be assigned licenses
+C) Users bypass all security policies
+D) Users can reset their own passwords without the help desk
+Correct: A
+Rationale: SSO lets a single authentication grant access to many integrated applications. (Reference: What is single sign-on)
+
+[Type: Multi]
+72. Which controls can a Conditional Access policy require when granting access? Choose three.
+A) Multifactor authentication
+B) A compliant or hybrid-joined device
+C) A minimum mailbox storage quota
+D) Assignment of a new user license
+E) An approved client application
+Correct: A, B, E
+Rationale: Grant controls include MFA, device compliance, and approved apps, among others. (Reference: Building Conditional Access policies)
+
+[Type: Single]
+73. Which security object should be used to grant a set of users access to a shared resource based on their common role?
+A) A distribution list
+B) A security group
+C) A conditional access policy
+D) A sensitivity label
+Correct: B
+Rationale: Security groups assign access to resources for users who share a role. (Reference: What is Microsoft Entra ID)
+
+[Type: Single]
+74. Identity Secure Score in Microsoft Entra ID primarily helps administrators to do what?
+A) Track the organization's Microsoft 365 license spending
+B) Monitor SharePoint file sharing activity
+C) Measure and improve their identity security posture against recommended best practices
+D) Generate compliance reports for data retention
+Correct: C
+Rationale: Identity Secure Score quantifies identity posture and recommends improvements. (Reference: Identity Secure Score in Microsoft Entra ID)
+
+[Type: Single]
+75. Which tool helps an administrator review user and admin sign-in and activity for investigation?
+A) The Microsoft 365 message center
+B) The SharePoint admin center
+C) The Teams usage dashboard
+D) Microsoft Entra audit and sign-in logs
+Correct: D
+Rationale: Entra audit and sign-in logs record activity for review and investigation. (Reference: Audit logs in Microsoft Entra ID)
+
+[Type: Single]
+76. What is the purpose of Privileged Identity Management (PIM)?
+A) To provide just-in-time, time-bound, and approval-based activation of privileged roles
+B) To enforce multifactor authentication for all users
+C) To monitor sign-in risk in real time
+D) To manage Conditional Access policies
+Correct: A
+Rationale: PIM enables just-in-time elevation and oversight of privileged roles. (Reference: Privileged Identity Management (PIM))
+
+[Type: Multi]
+77. Which capabilities does Privileged Identity Management provide? Choose three.
+A) Just-in-time role activation
+B) Enforcement of password complexity rules
+C) Approval workflows for activation
+D) Access reviews and alerts for privileged roles
+E) Automatic license assignment to new users
+Correct: A, C, D
+Rationale: PIM supports JIT activation, approvals, and oversight such as reviews and alerts. (Reference: Privileged Identity Management (PIM))
+
+[Type: Single]
+78. An administrator must distinguish between an application registration and an enterprise application. Which statement is correct?
+A) They are the same object with the same purpose
+B) An app registration defines an application's identity and configuration, while the enterprise application is the instance used in the tenant
+C) An enterprise application cannot have permissions
+D) An app registration cannot be used for single sign-on
+Correct: B
+Rationale: The app registration defines the app; the enterprise application (service principal) represents its use in the tenant. (Reference: App registrations and enterprise apps)
+
+[Type: Multi]
+79. Sign-in logs show that a user account is repeatedly flagged for risky sign-ins from unfamiliar locations. Which tools should the administrator use to investigate and respond? Choose two.
+A) A SharePoint data access governance report
+B) Microsoft Entra sign-in logs to review the risky sign-in details
+C) A Microsoft Purview eDiscovery case
+D) Conditional Access to require MFA or block the risky sign-ins
+Correct: B, D
+Rationale: Sign-in logs surface the risk detail and Conditional Access enforces a response such as MFA or block. (Reference: Identity Protection risk detections)
+
+[Type: Single]
+80. Which statement about Conditional Access is accurate?
+A) It scans email attachments for malware
+B) It replaces Microsoft Entra ID
+C) It applies access controls based on conditions evaluated at sign-in
+D) It assigns licenses based on user role
+Correct: C
+Rationale: Conditional Access enforces controls based on conditions assessed during sign-in. (Reference: Conditional Access overview)
+
+[Type: Single]
+81. How does single sign-on relate to security as well as convenience?
+A) It removes the need for any authentication
+B) It exposes passwords to all apps
+C) It disables logging
+D) Centralized authentication reduces password reuse and enables consistent policy enforcement
+Correct: D
+Rationale: SSO centralizes authentication, reducing password sprawl and enabling unified policy. (Reference: What is single sign-on)
+
+[Type: Multi]
+82. Which signals can be used as conditions in a Conditional Access policy? Choose three.
+A) The time since the user's last password change
+B) User or group membership
+C) Device platform or compliance state
+D) The number of devices the user owns
+E) Sign-in risk level
+Correct: B, C, E
+Rationale: Conditional Access conditions include identity, device, and risk signals. (Reference: Building Conditional Access policies)
+
+[Type: Single]
+83. Which action improves an organization's Identity Secure Score?
+A) Implementing recommended controls such as enabling multifactor authentication
+B) Granting users extra permissions to reduce help desk tickets
+C) Assigning more licenses to administrators
+D) Disabling sign-in logging to improve performance
+Correct: A
+Rationale: Adopting recommended identity controls raises the Identity Secure Score. (Reference: Identity Secure Score in Microsoft Entra ID)
+
+[Type: Single]
+84. A user reports they were prompted for multifactor authentication unexpectedly when accessing a sensitive app. What most likely triggered this?
+A) The user's password had recently expired
+B) A Conditional Access policy required MFA for that app or condition
+C) The user signed in from a previously used device
+D) The user's license was upgraded
+Correct: B
+Rationale: Conditional Access policies can require MFA based on the app or risk conditions. (Reference: Building Conditional Access policies)
+
+[Type: Single]
+85. What is the most appropriate tool to grant temporary elevated access to a help desk engineer who only occasionally needs an administrative role?
+A) Permanent assignment of the role
+B) A standing security group holding the admin role
+C) Privileged Identity Management with just-in-time activation
+D) A shared administrator account
+Correct: C
+Rationale: PIM grants time-bound, on-demand elevation appropriate for occasional needs. (Reference: Privileged Identity Management (PIM))
+
+[Type: Multi]
+86. Which are valid reasons to review Microsoft Entra audit logs? Choose two.
+A) To configure mailbox forwarding rules
+B) To reset a user's multifactor authentication methods
+C) To investigate changes made by administrators
+D) To trace user activity during an incident
+Correct: C, D
+Rationale: Audit logs help investigate administrative changes and trace user activity. (Reference: Audit logs in Microsoft Entra ID)
+
+[Type: Single]
+87. Which capability allows an organization to require that only managed, compliant devices can access corporate resources?
+A) A data loss prevention (DLP) policy
+B) A sensitivity label
+C) An Exchange mail flow rule
+D) A Conditional Access policy that requires device compliance
+Correct: D
+Rationale: Conditional Access can require device compliance as a grant control. (Reference: Building Conditional Access policies)
+
+[Type: Single]
+88. What is the function of an enterprise application in Microsoft Entra ID?
+A) It represents an application that has been added to the tenant, enabling sign-on and permissions
+B) It synchronizes on-premises passwords to the cloud
+C) It defines the source code of an application
+D) It encrypts the tenant's stored data
+Correct: A
+Rationale: An enterprise application is the tenant instance enabling sign-on and consented permissions. (Reference: App registrations and enterprise apps)
+
+[Type: Multi]
+89. A security review finds several administrators with permanent global administrator rights they rarely use. Which combination best reduces standing privilege while preserving the ability to act when needed? Choose two.
+A) Use Privileged Identity Management to make the role eligible rather than permanent
+B) Require approval and time-bound activation for the role
+C) Remove all admin roles and reassign them manually each week
+D) Grant the Global Reader role to all administrators
+Correct: A, B
+Rationale: Making roles eligible with approval and time limits reduces standing privilege under least privilege. (Reference: Privileged Identity Management (PIM))
+
+[Type: Single]
+90. Which statement about multifactor authentication and Conditional Access is correct?
+A) Multifactor authentication disables Conditional Access
+B) Conditional Access can be configured to require multifactor authentication under specific conditions
+C) Conditional Access removes the need for identities
+D) They cannot be used together
+Correct: B
+Rationale: Conditional Access commonly enforces MFA based on configured conditions. (Reference: Building Conditional Access policies)
+
+[Type: Single]
+91. What does Identity Secure Score compare an organization against?
+A) Industry-average license spending
+B) The organization's historical sign-in volume
+C) Recommended identity security best practices and configurations
+D) The number of guest users in the tenant
+Correct: C
+Rationale: Identity Secure Score benchmarks posture against recommended best practices. (Reference: Identity Secure Score in Microsoft Entra ID)
+
+[Type: Multi]
+92. Which are appropriate uses of security groups in Microsoft 365? Choose two.
+A) Granting access to a SharePoint site for a role
+B) Delivering newsletters as the primary purpose
+C) Assigning licenses through group-based licensing
+D) Applying retention to mailbox items
+Correct: A, C
+Rationale: Security groups grant resource access and can drive group-based licensing. (Reference: What is Microsoft Entra ID)
+
+[Type: Single]
+93. Which tool would you use first to confirm whether a failed access attempt was blocked by policy or by incorrect credentials?
+A) The Microsoft 365 service health dashboard
+B) The Exchange message trace tool
+C) The SharePoint audit log
+D) The Microsoft Entra sign-in logs
+Correct: D
+Rationale: Sign-in logs show the result and reason, including policy enforcement, for an attempt. (Reference: Audit logs in Microsoft Entra ID)
+
+[Type: Single]
+94. What is a primary purpose of conditional access policies in protecting access to Microsoft 365 Copilot and other apps?
+A) To ensure access is granted only when identity and device conditions are satisfied
+B) To grant all users access to Copilot by default
+C) To index documents for Copilot responses
+D) To encrypt Copilot conversation history
+Correct: A
+Rationale: Conditional Access gates app access on satisfied identity and device conditions. (Reference: Conditional Access overview)
+
+[Type: Single]
+95. Which is an example of strengthening identity security posture as measured by Identity Secure Score?
+A) Granting standing admin rights to more users
+B) Reducing the number of permanent privileged role assignments
+C) Disabling multifactor authentication to reduce prompts
+D) Allowing legacy authentication protocols
+Correct: B
+Rationale: Reducing standing privilege is a recommended posture improvement reflected in the score. (Reference: Identity Secure Score in Microsoft Entra ID)
+
+[Type: Single]
+96. An auditor asks for evidence of who changed a Conditional Access policy last month and when. Where should the administrator look?
+A) The Microsoft 365 message center
+B) The Conditional Access policy's current settings page
+C) The Microsoft Entra audit logs
+D) The user's sign-in logs
+Correct: C
+Rationale: Administrative changes such as policy edits are recorded in Entra audit logs. (Reference: Audit logs in Microsoft Entra ID)
+
+[Type: Single]
+97. Which statement about single sign-on is correct in a Zero Trust context?
+A) SSO removes the need for Conditional Access
+B) SSO disables multifactor authentication
+C) SSO grants every user administrative access
+D) SSO centralizes authentication so policies like Conditional Access can be consistently enforced
+Correct: D
+Rationale: SSO provides a central authentication point where Zero Trust policies are applied. (Reference: What is single sign-on)
+
+[Type: Single]
+98. What is the recommended response when sign-in risk is detected for a user attempting to access sensitive resources?
+A) Use Conditional Access to require remediation such as MFA or to block the sign-in
+B) Reset the user's password and take no further action
+C) Email the user a security reminder and allow the sign-in
+D) Disable the user's account permanently
+Correct: A
+Rationale: Risk-based Conditional Access can require MFA or block access in response to detected risk. (Reference: Identity Protection risk detections)
+
+[Type: Multi]
+99. Which objects are managed primarily in Microsoft Entra ID rather than in SharePoint? Choose two.
+A) Users
+B) Document libraries
+C) Site columns
+D) Security groups
+Correct: A, D
+Rationale: Users and security groups are Entra ID objects; libraries and columns are SharePoint objects. (Reference: What is Microsoft Entra ID)
+
+[Type: Single]
+100. Which Microsoft 365 capability provides a centralized view of identity-related risk detections such as leaked credentials and anonymous IP address sign-ins?
+A) Microsoft Defender for Office 365
+B) Microsoft Entra ID Protection
+C) Microsoft Entra Conditional Access
+D) Microsoft Purview Insider Risk Management
+Correct: B
+Rationale: Microsoft Entra ID Protection aggregates risk detections and surfaces risky users and sign-ins for investigation and policy response. (Reference: What is Microsoft Entra ID Protection)
+
+[Category: Domain 2: Data Protection & Governance]
+[Type: Single]
+101. Which Microsoft Purview capability classifies content and can apply protection such as encryption and visual markings to documents and emails?
+A) Retention labels
+B) Communication Compliance
+C) Sensitivity labels
+D) eDiscovery
+Correct: C
+Rationale: Sensitivity labels classify and protect content, applying encryption and markings that travel with the file. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+102. What is the primary purpose of a Microsoft Purview Data Loss Prevention policy?
+A) Encrypt every outbound email automatically
+B) Classify content by sensitive information type
+C) Retain deleted files for legal hold
+D) Detect and help prevent the unintended sharing of sensitive information
+Correct: D
+Rationale: DLP policies identify sensitive information and enforce actions that reduce accidental or risky sharing. (Reference: Learn about Data Loss Prevention)
+
+[Type: Single]
+103. Which Purview solution helps detect risky activities such as data theft by departing employees?
+A) Insider Risk Management
+B) Conditional Access
+C) Communication Compliance
+D) Data Lifecycle Management
+Correct: A
+Rationale: Insider Risk Management uses signals to identify and investigate potentially risky internal activity. (Reference: Learn about Insider Risk Management)
+
+[Type: Single]
+104. Which Purview capability is designed to detect inappropriate messages and potential workplace policy violations in communications?
+A) Data Loss Prevention
+B) Communication Compliance
+C) Sensitivity labels
+D) Secure Score
+Correct: B
+Rationale: Communication Compliance examines messages for policy violations such as harassment or sensitive data exposure. (Reference: Learn about Communication Compliance)
+
+[Type: Single]
+105. What does a Microsoft Purview retention policy primarily control?
+A) Who is allowed to open a document
+B) The size of each mailbox
+C) How long content is kept and when it is deleted
+D) How content is encrypted at rest
+Correct: C
+Rationale: Retention policies govern how long content is retained and when it is removed, supporting compliance requirements. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+106. Which Purview tool provides an assessment of your organization's compliance posture with a score and improvement actions?
+A) Activity explorer
+B) eDiscovery
+C) Insider Risk Management
+D) Compliance Manager
+Correct: D
+Rationale: Compliance Manager measures compliance posture and recommends improvement actions tied to regulations. (Reference: Learn about Compliance Manager)
+
+[Type: Single]
+107. Which Purview capability is used to find, hold, and export content relevant to a legal investigation?
+A) eDiscovery
+B) Sensitivity labels
+C) Conditional Access
+D) Communication Compliance
+Correct: A
+Rationale: eDiscovery locates, preserves, and exports content for legal and investigative purposes. (Reference: Learn about Microsoft Purview eDiscovery)
+
+[Type: Single]
+108. What is the function of data classification in Microsoft Purview?
+A) Apply encryption to all classified files
+B) Identify and categorize content based on sensitive information types and trainable classifiers
+C) Set retention periods for content
+D) Block external sharing of files
+Correct: B
+Rationale: Data classification identifies sensitive content using sensitive information types and trainable classifiers. (Reference: Learn about data classification)
+
+[Type: Single]
+109. Which Purview feature lets administrators review activities performed on labeled content, such as label changes and file accesses?
+A) Compliance Manager
+B) Conditional Access
+C) Activity explorer
+D) Secure Score
+Correct: C
+Rationale: Activity explorer surfaces activity on classified and labeled content for monitoring and investigation. (Reference: Get started with activity explorer)
+
+[Type: Single]
+110. What is the relationship between a sensitivity label and the encryption it can apply?
+A) The label deletes content after a set period
+B) The label moves content to an archive
+C) The label scans content for malware
+D) The label can be configured to encrypt content and restrict who can access it
+Correct: D
+Rationale: A sensitivity label can enforce encryption and usage rights that restrict access to authorized users. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+111. Which Purview capability focuses on the lifecycle of data, including retaining and deleting content automatically?
+A) Data Lifecycle Management
+B) Conditional Access
+C) Communication Compliance
+D) Insider Risk Management
+Correct: A
+Rationale: Data Lifecycle Management governs retention and deletion across the content lifecycle. (Reference: Learn about Data Lifecycle Management)
+
+[Type: Single]
+112. A sensitive information type in Purview is best described as what?
+A) A trainable classifier trained on examples
+B) A pattern definition used to identify specific sensitive data such as credit card numbers
+C) A retention label rule
+D) A DLP policy action
+Correct: B
+Rationale: Sensitive information types define patterns, such as credit card formats, used to detect sensitive data. (Reference: Learn about data classification)
+
+[Type: Single]
+113. Which statement best describes how a DLP policy enforces protection when a user tries to share sensitive content externally?
+A) It permanently encrypts the user's mailbox
+B) It notifies the recipient's manager automatically
+C) It can block the action and display a policy tip explaining why
+D) It removes the user from all groups
+Correct: C
+Rationale: DLP can block risky sharing and show policy tips that guide users toward compliant behavior. (Reference: Learn about Data Loss Prevention)
+
+[Type: Single]
+114. What is a trainable classifier in Microsoft Purview used for?
+A) Defining a fixed pattern such as a regular expression
+B) Encrypting content automatically
+C) Applying retention labels to content
+D) Recognizing categories of content by example rather than by a fixed pattern
+Correct: D
+Rationale: Trainable classifiers identify content categories from examples, complementing pattern-based detection. (Reference: Learn about data classification)
+
+[Type: Single]
+115. Which Purview solution would help an organization respond to a data subject request by locating an individual's personal data?
+A) eDiscovery
+B) Conditional Access
+C) Compliance Manager
+D) Data Lifecycle Management
+Correct: A
+Rationale: eDiscovery search helps locate personal data across Microsoft 365 to support data subject requests. (Reference: Learn about Microsoft Purview eDiscovery)
+
+[Type: Single]
+116. What does applying a retention label to a document accomplish?
+A) It assigns the document a sensitivity label automatically
+B) It enforces a retention or deletion rule on that specific item
+C) It moves the document to an archive mailbox
+D) It restricts who can edit the document
+Correct: B
+Rationale: A retention label applies a specific retention or deletion rule to the item it is placed on. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+117. Which capability provides organization-wide visibility into where sensitive information is stored and used?
+A) Conditional Access
+B) Communication Compliance
+C) Data classification with content explorer and activity explorer
+D) Insider Risk Management
+Correct: C
+Rationale: Content and activity explorer within data classification reveal where sensitive data resides and how it is used. (Reference: Learn about data classification)
+
+[Type: Single]
+118. What is the purpose of Microsoft Purview Compliance Manager improvement actions?
+A) Automatically resolve all compliance alerts
+B) Encrypt every document in the tenant
+C) Generate eDiscovery cases for legal teams
+D) Provide recommended steps that raise the compliance score and reduce risk
+Correct: D
+Rationale: Improvement actions are recommended steps that improve compliance posture and reduce risk. (Reference: Learn about Compliance Manager)
+
+[Type: Single]
+119. Which Purview feature allows an organization to automatically apply a sensitivity label based on the content of a file?
+A) Auto-labeling
+B) Conditional Access
+C) Communication Compliance
+D) Data Lifecycle Management
+Correct: A
+Rationale: Auto-labeling applies sensitivity labels automatically when content matches defined conditions. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+120. Communication Compliance policies are most useful for addressing which type of risk?
+A) Sensitive files shared externally
+B) Inappropriate or non-compliant messages sent by users
+C) Documents missing retention labels
+D) Unencrypted data at rest
+Correct: B
+Rationale: Communication Compliance targets inappropriate or non-compliant messaging behavior. (Reference: Learn about Communication Compliance)
+
+[Type: Single]
+121. What is the main benefit of using retention policies rather than relying on users to delete content manually?
+A) Reduced mailbox storage usage
+B) Fewer data subject requests
+C) Consistent, automated enforcement of retention and deletion across the organization
+D) Automatic encryption of all content
+Correct: C
+Rationale: Retention policies enforce retention and deletion consistently without depending on manual user action. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+122. Which Purview capability would an administrator use to investigate whether a user downloaded large volumes of sensitive files before resigning?
+A) Communication Compliance
+B) Data Loss Prevention
+C) eDiscovery
+D) Insider Risk Management
+Correct: D
+Rationale: Insider Risk Management correlates signals such as mass downloads to flag potential data theft. (Reference: Learn about Insider Risk Management)
+
+[Type: Single]
+123. A sensitivity label applied to a Teams meeting can control which of the following?
+A) Meeting options such as who can bypass the lobby and whether recording is allowed
+B) The maximum number of attendees allowed
+C) The time zone shown to attendees
+D) The mailbox retention period for the organizer
+Correct: A
+Rationale: Sensitivity labels can govern meeting settings such as lobby bypass and recording permissions. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+124. What distinguishes a retention label from a retention policy in Purview?
+A) A label encrypts content while a policy deletes accounts
+B) A label is applied to individual items, while a policy applies broadly to locations
+C) A label applies to mailboxes only while a policy applies to files only
+D) There is no functional difference
+Correct: B
+Rationale: Labels target individual items; policies apply retention settings across whole locations. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+125. Which Purview solution helps an organization demonstrate adherence to a specific regulation by mapping controls to actions?
+A) Conditional Access
+B) Data Lifecycle Management
+C) Compliance Manager
+D) Insider Risk Management
+Correct: C
+Rationale: Compliance Manager maps regulatory controls to improvement actions to demonstrate adherence. (Reference: Learn about Compliance Manager)
+
+[Type: Single]
+126. What does the term data lifecycle management encompass in Microsoft Purview?
+A) Encrypting all outbound email
+B) Detecting malware in files
+C) Classifying content by sensitivity
+D) Retaining, managing, and deleting content according to organizational and regulatory needs
+Correct: D
+Rationale: Data Lifecycle Management covers retaining, managing, and deleting content per requirements. (Reference: Learn about Data Lifecycle Management)
+
+[Type: Single]
+127. Which feature would an administrator use to ensure that financial records are kept for seven years and then deleted?
+A) A retention policy or label configured for a seven-year retention period
+B) A sensitivity label with encryption
+C) A DLP policy blocking deletion
+D) An eDiscovery hold
+Correct: A
+Rationale: A retention policy or label with a seven-year setting enforces the required retain-then-delete behavior. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+128. What is the purpose of a DLP policy tip shown to a user?
+A) Automatically encrypt the shared file
+B) Inform the user that their action may violate policy and guide compliant behavior
+C) Quarantine the user's account
+D) Block the action without any explanation
+Correct: B
+Rationale: Policy tips notify users of potential violations and steer them toward compliant actions. (Reference: Learn about Data Loss Prevention)
+
+[Type: Single]
+129. Which Purview capability provides a unified place to discover, classify, and protect sensitive data across Microsoft 365?
+A) Conditional Access
+B) Communication Compliance
+C) Information protection through sensitivity labels and classification
+D) Data Lifecycle Management
+Correct: C
+Rationale: Information protection unifies discovery, classification, and protection of sensitive data. (Reference: Learn about Microsoft Purview)
+
+[Type: Single]
+130. An organization wants to detect when employees send messages containing offensive language. Which Purview solution applies?
+A) Data Lifecycle Management
+B) Conditional Access
+C) Insider Risk Management
+D) Communication Compliance
+Correct: D
+Rationale: Communication Compliance detects offensive or non-compliant content in messages. (Reference: Learn about Communication Compliance)
+
+[Type: Multi]
+131. Which of the following are Microsoft Purview capabilities? Choose three.
+A) Sensitivity labels
+B) Data Loss Prevention
+C) Insider Risk Management
+D) Conditional Access
+E) Single sign-on
+Correct: A, B, C
+Rationale: Sensitivity labels, DLP, and Insider Risk Management are Purview capabilities; Conditional Access and SSO are identity features. (Reference: Learn about Microsoft Purview)
+
+[Type: Multi]
+132. Which actions can a sensitivity label perform on a document? Choose three.
+A) Apply encryption
+B) Add a visual watermark
+C) Move the document to an archive
+D) Restrict who can open it
+E) Delete the document after 90 days
+Correct: A, B, D
+Rationale: Sensitivity labels can encrypt, mark, and restrict access; they do not assign licenses or provision Teams. (Reference: Learn about sensitivity labels)
+
+[Type: Multi]
+133. Which outcomes can a Data Loss Prevention policy produce when sensitive data is detected? Choose three.
+A) Block the action
+B) Encrypt the user's entire mailbox
+C) Show a policy tip
+D) Remove the file's sensitivity label
+E) Generate an alert for administrators
+Correct: A, C, E
+Rationale: DLP can block actions, display policy tips, and alert administrators; it does not delete accounts or disable Entra ID. (Reference: Learn about Data Loss Prevention)
+
+[Type: Multi]
+134. Which scenarios are appropriate uses of eDiscovery? Choose two.
+A) Classifying documents by sensitivity
+B) Responding to litigation by preserving relevant content
+C) Exporting content for a regulatory investigation
+D) Applying retention labels to mailboxes
+Correct: B, C
+Rationale: eDiscovery preserves and exports content for legal and regulatory needs. (Reference: Learn about Microsoft Purview eDiscovery)
+
+[Type: Multi]
+135. Which capabilities help an organization manage how long content is retained? Choose two.
+A) Conditional Access policies
+B) Retention policies
+C) Single sign-on
+D) Retention labels
+Correct: B, D
+Rationale: Retention policies and labels govern retention duration; the others are identity features. (Reference: Learn about retention policies and labels)
+
+[Type: Multi]
+136. Which Purview features help identify where sensitive information resides? Choose two.
+A) Compliance Manager
+B) Communication Compliance
+C) Content explorer
+D) Activity explorer
+Correct: C, D
+Rationale: Content explorer and activity explorer reveal where sensitive data is stored and used. (Reference: Learn about data classification)
+
+[Type: Multi]
+137. Which of the following describe Insider Risk Management? Choose two.
+A) It uses signals to detect potentially risky internal activity
+B) It supports investigation of cases with defined workflows
+C) It blocks external file sharing automatically
+D) It encrypts files at rest
+Correct: A, B
+Rationale: Insider Risk Management detects risky activity and provides case investigation workflows. (Reference: Learn about Insider Risk Management)
+
+[Type: Multi]
+138. Which statements about Compliance Manager are correct? Choose two.
+A) It provides a compliance score
+B) It encrypts sensitive documents
+C) It recommends improvement actions
+D) It applies retention labels
+Correct: A, C
+Rationale: Compliance Manager provides a score and recommends actions; it does not provision sites or set Conditional Access. (Reference: Learn about Compliance Manager)
+
+[Type: Multi]
+139. Which methods can apply a sensitivity label to content? Choose three.
+A) Assignment based on the user's mailbox size
+B) Manual application by a user
+C) Automatic application based on content
+D) Default label assigned by policy
+E) Application through a Teams meeting policy
+Correct: B, C, D
+Rationale: Labels can be applied manually, automatically by content match, or as a default through policy. (Reference: Learn about sensitivity labels)
+
+[Type: Multi]
+140. Which are valid retention outcomes that a retention setting can enforce? Choose three.
+A) Retain content for a period then delete it
+B) Move content to a different tenant
+C) Notify the owner before deletion
+D) Retain content forever
+E) Delete content after a period without retaining
+Correct: A, D, E
+Rationale: Retention settings can retain then delete, retain only, or delete only; encryption and licensing are separate. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+141. A compliance team must ensure that any document containing credit card numbers cannot be emailed to external recipients. Which Purview capability should they configure?
+A) A Data Loss Prevention policy targeting the credit card sensitive information type
+B) A retention policy
+C) A sensitivity label without encryption
+D) A Communication Compliance policy
+Correct: A
+Rationale: A DLP policy using the credit card sensitive information type can block external sharing of matching content. (Reference: Learn about Data Loss Prevention)
+
+[Type: Single]
+142. An organization needs to automatically protect all files marked Highly Confidential so only employees can open them, even if a file is downloaded. Which approach meets this need?
+A) Configure a retention policy
+B) Configure a sensitivity label with encryption and apply it through auto-labeling
+C) Configure a DLP policy tip
+D) Configure an eDiscovery hold
+Correct: B
+Rationale: A sensitivity label with encryption travels with the file and restricts access regardless of location. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+143. A legal team requests that all content related to a specific matter be preserved and unchangeable while the case is active. Which capability supports this?
+A) A DLP policy tip
+B) A retention policy set to delete-only
+C) An eDiscovery hold that preserves relevant content
+D) A sensitivity label
+Correct: C
+Rationale: An eDiscovery hold preserves content in place so it cannot be permanently altered or removed during a case. (Reference: Learn about Microsoft Purview eDiscovery)
+
+[Type: Single]
+144. Leadership wants a measurable view of how well the organization meets a privacy regulation, with prioritized actions. Which Purview tool should be used?
+A) Activity explorer
+B) Insider Risk Management
+C) Secure Score
+D) Compliance Manager
+Correct: D
+Rationale: Compliance Manager scores posture against regulations and prioritizes improvement actions. (Reference: Learn about Compliance Manager)
+
+[Type: Single]
+145. Which Purview capability would an organization use to detect and act on potential data theft, harassment, and other risky behaviors through a single set of investigative workflows?
+A) Insider Risk Management
+B) Conditional Access
+C) Communication Compliance
+D) Data Loss Prevention
+Correct: A
+Rationale: Insider Risk Management provides correlated signals and case workflows to investigate risky internal behavior. (Reference: Learn about Insider Risk Management)
+
+[Type: Single]
+146. How does Microsoft 365 Copilot determine which organizational content a user can see in its responses?
+A) It grants access to all tenant content regardless of permissions
+B) It respects the existing Microsoft 365 permissions of the signed-in user
+C) It ignores SharePoint permissions
+D) It uses a separate set of Copilot-only permissions
+Correct: B
+Rationale: Copilot honors the user's existing permissions, so it only surfaces content the user can already access. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+147. Is organizational data sent to Microsoft 365 Copilot used to train the foundation models that are available to other tenants?
+A) Yes, all prompts train the shared models
+B) Only email is used for training
+C) No, your organizational data is not used to train the foundation models
+D) Only SharePoint data is used for training
+Correct: C
+Rationale: Customer data processed by Copilot is not used to train the foundation models available to other tenants. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+148. Which component grounds Microsoft 365 Copilot responses in relevant organizational content?
+A) Conditional Access
+B) Single sign-on
+C) Secure Score
+D) Microsoft Graph
+Correct: D
+Rationale: Copilot uses Microsoft Graph to ground responses in the user's accessible organizational content. (Reference: Microsoft 365 Copilot architecture)
+
+[Type: Single]
+149. When Copilot returns information from a document, what determines whether a specific user receives that information?
+A) Whether the user already has permission to the underlying document
+B) Whether the user has a mailbox
+C) Whether the document is older than one year
+D) Whether the user is an administrator
+Correct: A
+Rationale: Copilot only returns content the user is already permitted to access, based on underlying permissions. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+150. What protection does a sensitivity label with encryption provide when Copilot processes a labeled file?
+A) The label is ignored during processing
+B) Usage rights are honored, so users without rights are not served the protected content
+C) The file is automatically deleted
+D) All users gain access to the file
+Correct: B
+Rationale: Encryption usage rights are enforced, so Copilot does not surface protected content to users lacking rights. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+151. Which Microsoft solution provides visibility into how users interact with AI applications, including Copilot, and flags risky AI usage?
+A) Conditional Access
+B) Single sign-on
+C) Data Security Posture Management for AI in Microsoft Purview
+D) Microsoft Purview Communication Compliance
+Correct: C
+Rationale: DSPM for AI gives visibility into AI interactions and surfaces risks associated with AI usage. (Reference: Data Security Posture Management for AI)
+
+[Type: Single]
+152. Where are a user's Microsoft 365 Copilot interactions stored so they can be subject to compliance controls?
+A) On the local device only
+B) In a public repository
+C) They are not stored anywhere
+D) In the user's mailbox, where Purview can apply retention and eDiscovery
+Correct: D
+Rationale: Copilot interactions are stored in the user's mailbox, enabling Purview retention and eDiscovery. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+153. What is the effect of a DLP policy that references Copilot when sensitive content is involved?
+A) It can help prevent sensitive labeled content from being summarized or processed in certain contexts
+B) It assigns a new sensitivity label to the content
+C) It blocks the user from signing in
+D) It encrypts the user's mailbox
+Correct: A
+Rationale: DLP integrated with Purview can restrict how labeled sensitive content is processed by Copilot. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+154. Why is correctly configuring SharePoint permissions important before deploying Microsoft 365 Copilot?
+A) Copilot requires permissions to be removed entirely
+B) Copilot surfaces content based on those permissions, so overly broad access can expose sensitive data
+C) Permissions have no effect on Copilot
+D) Copilot creates its own permissions and ignores SharePoint
+Correct: B
+Rationale: Because Copilot honors permissions, broad or misconfigured access can lead to unintended data exposure. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+155. Does Microsoft 365 Copilot retain access to content after a user's permission to that content is removed?
+A) Yes, Copilot caches all content permanently
+B) Only administrators lose access
+C) No, Copilot reflects current permissions, so removed access means the content is no longer surfaced
+D) Access is retained for one year
+Correct: C
+Rationale: Copilot reflects current permissions, so revoking access stops that content from being surfaced. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+156. Which principle best describes Microsoft's approach to customer data in Copilot regarding tenant boundaries?
+A) Data is shared across all tenants for quality
+B) Data is published publicly
+C) Data is sold to third parties
+D) Data stays within the organization's Microsoft 365 service boundary and is not shared with other tenants
+Correct: D
+Rationale: Copilot keeps customer data within the tenant boundary and does not share it with other tenants. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+157. What is the role of Microsoft Purview in securing Copilot interactions?
+A) It applies classification, labeling, DLP, retention, and eDiscovery to AI interactions and grounding data
+B) It grounds Copilot responses in organizational data
+C) It generates Copilot prompts for users
+D) It trains the foundation models on tenant data
+Correct: A
+Rationale: Purview extends classification, protection, and compliance controls to AI interactions and their data. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+158. When a user asks Copilot to summarize a file they cannot open, what happens?
+A) Copilot grants temporary access automatically
+B) Copilot does not provide the content because the user lacks permission
+C) Copilot escalates the request to an administrator
+D) Copilot deletes the file
+Correct: B
+Rationale: Without permission to the file, Copilot does not surface its content to the user. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+159. Which capability helps an organization discover sensitive information that users are pasting into AI prompts?
+A) Conditional Access
+B) Single sign-on
+C) Data Security Posture Management for AI
+D) Communication Compliance
+Correct: C
+Rationale: DSPM for AI surfaces sensitive data interactions with AI, including prompts. (Reference: Data Security Posture Management for AI)
+
+[Type: Single]
+160. What does it mean that Copilot responses are grounded?
+A) Responses are based only on the typed prompt with no organizational data
+B) Responses come only from public web data
+C) Responses come from a fixed library of templates
+D) Responses are based on relevant organizational data the user can access, improving relevance and accuracy
+Correct: D
+Rationale: Grounding ties responses to the user's accessible organizational data for relevance and accuracy. (Reference: Microsoft 365 Copilot architecture)
+
+[Type: Single]
+161. Which statement about Copilot and existing Microsoft 365 security controls is accurate?
+A) Copilot inherits and respects controls such as sensitivity labels and permissions
+B) Copilot bypasses all existing controls
+C) Copilot disables sensitivity labels
+D) Copilot requires controls to be turned off
+Correct: A
+Rationale: Copilot operates within existing controls, inheriting permissions and label protections. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+162. How can an organization reduce the risk that Copilot surfaces stale, sensitive content?
+A) Exclude all SharePoint sites from Copilot
+B) Apply retention and proper permissions so outdated sensitive content is removed or restricted
+C) Encrypt every document in the tenant
+D) Disable auto-labeling
+Correct: B
+Rationale: Good retention and permission hygiene limits exposure of outdated sensitive content through Copilot. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Multi]
+163. Which statements about Microsoft 365 Copilot and data privacy are correct? Choose three.
+A) It shares data across all tenants
+B) It respects the user's existing permissions
+C) It ignores sensitivity labels
+D) Customer data is not used to train the foundation models for other tenants
+E) Interactions can be governed by Purview
+Correct: B, D, E
+Rationale: Copilot respects permissions, keeps data out of shared model training, and supports Purview governance. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Multi]
+164. Which Purview capabilities can be applied to Microsoft 365 Copilot interactions? Choose three.
+A) Conditional Access
+B) Microsoft Secure Score
+C) Retention
+D) eDiscovery
+E) Sensitivity label enforcement
+Correct: C, D, E
+Rationale: Retention, eDiscovery, and label enforcement apply to Copilot interactions; licensing and meeting policy do not. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Multi]
+165. Which factors influence whether Copilot will include a given document in a response for a user? Choose two.
+A) The user's permission to the document
+B) The age of the document
+C) Whether the document has a retention label
+D) Encryption usage rights on the document
+Correct: A, D
+Rationale: Permissions and encryption usage rights determine whether content is surfaced; mailbox size and name length do not. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Multi]
+166. Which actions help prepare a tenant for secure Copilot adoption? Choose three.
+A) Review and remediate overly broad SharePoint permissions
+B) Apply sensitivity labels to sensitive content
+C) Turn off sensitivity labels tenant-wide
+D) Disable Microsoft Graph connectors
+E) Configure DLP for sensitive information
+Correct: A, B, E
+Rationale: Permission remediation, labeling, and DLP strengthen the tenant before Copilot adoption. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Multi]
+167. Which of the following are true about where Copilot processes and stores data? Choose two.
+A) Data is published to the public internet
+B) Interactions are stored in the user's mailbox
+C) Data remains within the tenant boundary
+D) Data trains shared models for other tenants
+Correct: B, C
+Rationale: Interactions are stored in the mailbox and remain within the tenant boundary. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+168. Before enabling Copilot, a security architect discovers many sites where Everyone has Edit access. What is the most relevant risk to address?
+A) Copilot will be unable to function at all
+B) Copilot will automatically restrict access to the sites
+C) Copilot may surface sensitive content broadly because it honors those permissions
+D) Copilot will encrypt all files on the sites
+Correct: C
+Rationale: Because Copilot honors permissions, broad access can cause unintended exposure of sensitive content. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+169. A compliance officer must ensure that Copilot prompts and responses can be searched for an investigation. Which capability enables this?
+A) Conditional Access
+B) Single sign-on
+C) Communication Compliance
+D) Purview eDiscovery over Copilot interactions stored in the mailbox
+Correct: D
+Rationale: Copilot interactions stored in the mailbox are discoverable through Purview eDiscovery. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+170. Which statement accurately describes how Microsoft 365 Copilot handles the prompts a user submits?
+A) Prompts and the grounding data are processed within the organization's service boundary and are not used to train foundation models for other tenants
+B) Prompts are added to a public dataset
+C) Prompts are shared with other customers to improve quality
+D) Prompts are stored only on the local device
+Correct: A
+Rationale: Prompts and grounding data stay within the tenant boundary and do not train shared foundation models. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+171. Contoso scenario: Which action most directly reduces the risk that Copilot surfaces sensitive financial files to users who should not see them?
+A) Exclude the financial sites from search indexing
+B) Apply sensitivity labels with encryption to the financial files and tighten site permissions
+C) Grant the finance team exclusive Copilot licenses
+D) Delete the financial files entirely
+Correct: B
+Rationale: Labeling with encryption plus tighter permissions ensures Copilot does not surface protected content to unauthorized users. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+172. Contoso scenario: Which capability ensures Copilot prompts and responses are retained and can be searched for compliance?
+A) Conditional Access
+B) Single sign-on
+C) Purview retention and eDiscovery applied to mailbox-stored Copilot interactions
+D) Communication Compliance
+Correct: C
+Rationale: Copilot interactions live in the mailbox, so Purview retention and eDiscovery satisfy the requirement. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+173. Contoso scenario: Which capability gives the security team visibility into risky AI interactions across the tenant?
+A) A Conditional Access policy
+B) Microsoft Secure Score
+C) Single sign-on
+D) Data Security Posture Management for AI
+Correct: D
+Rationale: DSPM for AI provides tenant-wide visibility into AI usage and associated risks. (Reference: Data Security Posture Management for AI)
+
+[Type: Single]
+174. What is the main data governance risk created by granting broad access to content across a tenant?
+A) Sensitive information may be exposed to users who should not have access
+B) Storage consumption increases across the tenant
+C) Version history grows quickly on shared files
+D) Search results become harder to navigate
+Correct: A
+Rationale: Broad access increases the chance that sensitive data is exposed to unauthorized users. (Reference: Learn about Microsoft Purview)
+
+[Type: Single]
+175. Which risk arises when content lacks classification and labeling?
+A) Content is encrypted by default
+B) Sensitive data may not receive appropriate protection or handling
+C) Audit logs grow larger
+D) Files are duplicated across sites
+Correct: B
+Rationale: Without classification and labeling, sensitive data may go unprotected and be mishandled. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+176. Why is retaining content longer than necessary a governance risk?
+A) It makes documents load faster
+B) It simplifies search results
+C) It increases exposure and legal liability for data that should have been deleted
+D) It automatically encrypts old data
+Correct: C
+Rationale: Excess retention raises exposure and liability for data that ought to have been removed. (Reference: Learn about Data Lifecycle Management)
+
+[Type: Single]
+177. What governance risk does shadow data, meaning unmanaged or forgotten content, present?
+A) It reduces the number of sites to manage
+B) It consolidates duplicate files
+C) It simplifies retention management
+D) It may contain sensitive information that is not protected or monitored
+Correct: D
+Rationale: Unmanaged content can hold sensitive data that escapes protection and monitoring. (Reference: Learn about data classification)
+
+[Type: Single]
+178. Which practice reduces the risk of sensitive data loss through email and sharing?
+A) Implementing Data Loss Prevention policies
+B) Granting all users full control
+C) Allowing anonymous sharing by default
+D) Disabling sensitivity labels
+Correct: A
+Rationale: DLP policies reduce the risk of sensitive data leaving the organization through email and sharing. (Reference: Learn about Data Loss Prevention)
+
+[Type: Single]
+179. What is a key governance risk of failing to monitor user activity on sensitive content?
+A) Storage usage increases
+B) Malicious or accidental misuse may go undetected
+C) Search performance declines
+D) Files lose their metadata
+Correct: B
+Rationale: Without monitoring, misuse of sensitive content can go undetected. (Reference: Learn about Insider Risk Management)
+
+[Type: Single]
+180. Which capability helps mitigate the risk of departing employees taking sensitive data?
+A) Conditional Access
+B) Secure Score
+C) Insider Risk Management
+D) Communication Compliance
+Correct: C
+Rationale: Insider Risk Management detects risky behavior such as data exfiltration by leavers. (Reference: Learn about Insider Risk Management)
+
+[Type: Single]
+181. Why is inconsistent labeling across an organization a governance concern?
+A) It increases storage costs
+B) It slows search indexing
+C) It creates duplicate labels
+D) Protection is applied unevenly, leaving some sensitive content unprotected
+Correct: D
+Rationale: Inconsistent labeling leaves gaps where sensitive content is not protected. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+182. What risk does a lack of clear retention rules create for regulatory compliance?
+A) Records may be deleted too soon or kept too long, breaching requirements
+B) Storage costs become unpredictable
+C) Search returns outdated results
+D) Files are encrypted automatically
+Correct: A
+Rationale: Without clear retention rules, organizations risk breaching requirements by mishandling records. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+183. Which governance risk is associated with external sharing links that never expire?
+A) Storage usage grows
+B) Content may remain accessible to outsiders long after it should
+C) Version history is lost
+D) Files become read-only
+Correct: B
+Rationale: Non-expiring external links can keep content exposed to outsiders indefinitely. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+184. How does data classification help reduce governance risk?
+A) It automatically deletes old content
+B) It reduces storage usage
+C) It identifies sensitive data so appropriate protection can be applied
+D) It speeds up search results
+Correct: C
+Rationale: Classification reveals where sensitive data is so protection can be targeted. (Reference: Learn about data classification)
+
+[Type: Single]
+185. What is the governance risk of allowing all users to share content externally without restriction?
+A) Storage fills up faster
+B) Search becomes slower
+C) Files are duplicated externally
+D) Sensitive data may be shared outside the organization without oversight
+Correct: D
+Rationale: Unrestricted external sharing can move sensitive data outside the organization unchecked. (Reference: Learn about Data Loss Prevention)
+
+[Type: Single]
+186. Which risk does Compliance Manager help organizations address?
+A) Gaps between current practices and regulatory requirements
+B) Unencrypted mailboxes
+C) Inactive user accounts
+D) Excess SharePoint storage
+Correct: A
+Rationale: Compliance Manager surfaces gaps against regulatory requirements and recommends actions. (Reference: Learn about Compliance Manager)
+
+[Type: Single]
+187. Why is it risky to rely solely on users to classify and protect sensitive content?
+A) It reduces storage costs
+B) Human error and inconsistency can leave sensitive data unprotected
+C) It simplifies licensing
+D) It increases search accuracy
+Correct: B
+Rationale: Manual classification is prone to error and inconsistency, leaving gaps in protection. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+188. What governance risk is reduced by automatically applying retention and deletion?
+A) Slow search performance
+B) Frequent password resets
+C) Inconsistent or forgotten manual deletion that leads to over-retention
+D) Inconsistent sensitivity labels
+Correct: C
+Rationale: Automated retention and deletion reduces over-retention caused by forgotten manual cleanup. (Reference: Learn about Data Lifecycle Management)
+
+[Type: Single]
+189. Which risk is most directly addressed by Communication Compliance?
+A) Unlabeled documents
+B) Expired sharing links
+C) Over-retained records
+D) Inappropriate or non-compliant messages going undetected
+Correct: D
+Rationale: Communication Compliance detects inappropriate or non-compliant messages that would otherwise go unnoticed. (Reference: Learn about Communication Compliance)
+
+[Type: Single]
+190. What is a governance risk of deploying AI tools without first reviewing data access?
+A) AI may surface sensitive content to users who should not have access
+B) AI responses become slower
+C) AI indexes fewer files
+D) AI encrypts all content
+Correct: A
+Rationale: Deploying AI without reviewing access can expose sensitive content through inherited permissions. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+191. Which approach best balances productivity and protection when governing data?
+A) Grant everyone full control
+B) Apply least privilege and targeted controls based on data sensitivity
+C) Remove all controls
+D) Disable sign-in for most users
+Correct: B
+Rationale: Least privilege with sensitivity-based controls protects data while preserving productivity. (Reference: Learn about Microsoft Purview)
+
+[Type: Multi]
+192. Which of the following are governance risks of oversharing content? Choose three.
+A) Sensitive data exposure to unauthorized users
+B) Reduced storage consumption
+C) Increased attack surface for data leaks
+D) AI surfacing content too broadly
+E) Improved search performance
+Correct: A, C, D
+Rationale: Oversharing exposes sensitive data, widens the leak surface, and can cause AI to surface content too broadly. (Reference: Data access governance reports in SharePoint)
+
+[Type: Multi]
+193. Which practices help mitigate data governance risks? Choose three.
+A) Grant broad access to speed work
+B) Classify and label sensitive data
+C) Apply DLP policies
+D) Disable audit logging
+E) Set appropriate retention and deletion
+Correct: B, C, E
+Rationale: Classification, DLP, and retention mitigate governance risk; broad access and disabling logging increase it. (Reference: Learn about Microsoft Purview)
+
+[Type: Multi]
+194. Which risks are reduced by applying retention policies? Choose two.
+A) Duplicate file creation
+B) Deleting records that must be kept
+C) Unencrypted attachments
+D) Keeping records longer than allowed
+Correct: B, D
+Rationale: Retention policies reduce both premature deletion and excessive retention of records. (Reference: Learn about retention policies and labels)
+
+[Type: Multi]
+195. Which signals might Insider Risk Management use to flag potential data theft? Choose three.
+A) Mass downloads of files
+B) Copying files to USB devices
+C) Sharing many files externally before departure
+D) Signing in during business hours
+E) Reading a single document
+Correct: A, B, C
+Rationale: Mass downloads, USB copying, and pre-departure external sharing are classic exfiltration signals. (Reference: Learn about Insider Risk Management)
+
+[Type: Multi]
+196. Which conditions increase the risk that Copilot exposes sensitive data? Choose two.
+A) Properly scoped permissions
+B) Encrypted sensitive content
+C) Overly broad SharePoint permissions
+D) Unlabeled sensitive content
+Correct: C, D
+Rationale: Broad permissions and unlabeled sensitive content increase exposure risk through Copilot. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+197. An auditor finds that confidential files are shared with anonymous links that do not expire. Which control best reduces this risk?
+A) Apply a sensitivity label to the site
+B) Increase the site's storage quota
+C) Configure expiring links and review external sharing through data access governance reports
+D) Move the files to a different library
+Correct: C
+Rationale: Expiring links plus access governance reviews limit ongoing exposure from anonymous sharing. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+198. A regulated firm cannot prove how long it keeps client records. Which capability addresses the compliance gap?
+A) Conditional Access
+B) Communication Compliance
+C) Insider Risk Management
+D) Purview retention policies and labels with defined retention periods
+Correct: D
+Rationale: Defined retention policies and labels provide provable, consistent record retention. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+199. Which governance risk results from users storing sensitive data in locations that are not covered by protection policies?
+A) Sensitive data may remain unclassified, unprotected, and unmonitored
+B) Storage usage decreases
+C) Search becomes faster
+D) Files are encrypted automatically
+Correct: A
+Rationale: Data stored outside policy coverage can stay unclassified and unmonitored, creating exposure. (Reference: Learn about data classification)
+
+[Type: Single]
+200. Why is it a governance risk to deploy generative AI before classifying and labeling sensitive content?
+A) The AI will respond more slowly
+B) The AI may surface unlabeled sensitive content broadly because protection is not applied
+C) The AI will index fewer documents
+D) The AI will encrypt all results
+Correct: B
+Rationale: Without classification and labeling, sensitive content lacks protection and can be surfaced broadly by AI. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+201. Fabrikam scenario: Which control most directly addresses the non-expiring anonymous sharing links?
+A) Apply retention labels to the documents
+B) Increase site storage limits
+C) Enforce expiring sharing links and review external access with data access governance reports
+D) Notify document owners by email
+Correct: C
+Rationale: Expiring links plus access governance reporting reduce ongoing exposure from anonymous links. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+202. Fabrikam scenario: Which capability ensures client data files receive consistent protection?
+A) Conditional Access
+B) Data access governance reports
+C) A retention policy
+D) Sensitivity labels applied through manual and automatic labeling
+Correct: D
+Rationale: Sensitivity labels, applied manually and automatically, deliver consistent protection to client data. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+203. Fabrikam scenario: Which capability provides a provable, consistent rule for retaining client records?
+A) Purview retention policies and labels
+B) A sensitivity label
+C) An eDiscovery hold
+D) A Conditional Access policy
+Correct: A
+Rationale: Retention policies and labels enforce consistent, provable record retention. (Reference: Learn about retention policies and labels)
+
+[Type: Single]
+204. What does oversharing in SharePoint typically refer to?
+A) Files taking up too much storage
+B) Content being accessible to more people than it should be
+C) Sites having too many subsites
+D) Content lacking version history
+Correct: B
+Rationale: Oversharing means content is accessible to more users than appropriate, raising exposure risk. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+205. Which SharePoint capability provides reports that identify potentially overshared content?
+A) Conditional Access
+B) Restricted Access Control
+C) Data access governance reports
+D) Secure Score
+Correct: C
+Rationale: Data access governance reports highlight sites and content with broad or risky access. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+206. Which feature can restrict access to a sensitive SharePoint site to only members of a specific group?
+A) A distribution list
+B) A sensitivity label
+C) A retention label
+D) Restricted Access Control
+Correct: D
+Rationale: Restricted Access Control limits site access to a defined group, reducing oversharing. (Reference: Restricted Access Control in SharePoint)
+
+[Type: Single]
+207. Why is the Everyone except external users group a common oversharing concern?
+A) It can grant broad internal access that unintentionally exposes sensitive content
+B) It applies encryption to content
+C) It prevents external sharing entirely
+D) It removes version history
+Correct: A
+Rationale: Granting this broad group access can unintentionally expose sensitive content to the whole organization. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+208. Which SharePoint Advanced Management capability helps administrators find and remediate oversharing at scale?
+A) Conditional Access
+B) Data access governance reports and access policies
+C) A retention policy
+D) A sensitivity label
+Correct: B
+Rationale: SharePoint Advanced Management offers reports and policies to find and fix oversharing at scale. (Reference: Microsoft SharePoint Advanced Management overview)
+
+[Type: Single]
+209. How does oversharing in SharePoint specifically increase risk when Copilot is deployed?
+A) Copilot blocks all overshared content automatically
+B) Copilot deletes overshared files
+C) Copilot can surface overshared content to users because it honors site permissions
+D) Copilot has no relationship to SharePoint permissions
+Correct: C
+Rationale: Because Copilot honors permissions, overshared content can be surfaced to users who should not see it. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+210. Which action reduces the risk of oversharing through sharing links?
+A) Allow anonymous links by default
+B) Remove all permissions from every site
+C) Convert all sites to read-only
+D) Set default link types to specific people and enable link expiration
+Correct: D
+Rationale: Restricting default link scope and enabling expiration reduces oversharing through links. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+211. What is the benefit of using site access reviews as part of oversharing remediation?
+A) Owners periodically confirm who should have access, removing unnecessary permissions
+B) Storage is reclaimed automatically
+C) Search results improve
+D) Content is encrypted
+Correct: A
+Rationale: Access reviews prompt owners to confirm access and remove unnecessary permissions. (Reference: Microsoft SharePoint Advanced Management overview)
+
+[Type: Multi]
+212. Which capabilities help identify or reduce oversharing in SharePoint? Choose three.
+A) Data access governance reports
+B) Restricted Access Control
+C) Conditional Access
+D) SharePoint Advanced Management policies
+E) A Teams meeting policy
+Correct: A, B, D
+Rationale: Access governance reports, Restricted Access Control, and Advanced Management policies address oversharing. (Reference: Microsoft SharePoint Advanced Management overview)
+
+[Type: Multi]
+213. Which settings help limit oversharing through sharing links? Choose two.
+A) Default links scoped to specific people
+B) Link expiration
+C) Anonymous links enabled by default
+D) Full control for Everyone
+Correct: A, B
+Rationale: Specific-people defaults and link expiration limit oversharing; the others increase it. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+214. An administrator must quickly identify which sites expose sensitive content to the entire organization before enabling Copilot. Which tool should they use?
+A) Conditional Access
+B) Data access governance reports in SharePoint
+C) Restricted Access Control
+D) A sensitivity label
+Correct: B
+Rationale: Data access governance reports reveal sites with broad access to sensitive content. (Reference: Data access governance reports in SharePoint)
+
+[Type: Single]
+215. After identifying an overshared sensitive site, which capability can immediately limit access to an approved group?
+A) A retention label
+B) A distribution list
+C) Restricted Access Control
+D) A Conditional Access policy
+Correct: C
+Rationale: Restricted Access Control confines site access to an approved group, containing the oversharing. (Reference: Restricted Access Control in SharePoint)
+
+[Category: Domain 3: Copilot & Agent Administration]
+[Type: Single]
+216. What is Microsoft 365 Copilot best described as?
+A) A standalone email client
+B) A device management tool
+C) A SharePoint migration utility
+D) An AI assistant integrated across Microsoft 365 apps that is grounded in organizational data
+Correct: D
+Rationale: Microsoft 365 Copilot is an AI assistant embedded across the apps and grounded in the user's data. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+217. In which Microsoft 365 applications can users interact with Microsoft 365 Copilot?
+A) Word, Excel, PowerPoint, Outlook, and Teams, among others
+B) Only Outlook
+C) Only Excel
+D) Only the admin center
+Correct: A
+Rationale: Copilot is available across core apps including Word, Excel, PowerPoint, Outlook, and Teams. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+218. What is an agent in the context of Microsoft Copilot?
+A) A standalone mobile app
+B) A customizable AI assistant that can be scoped to specific knowledge and tasks
+C) A type of user license
+D) A SharePoint permission level
+Correct: B
+Rationale: An agent is a tailored AI assistant scoped to particular knowledge, skills, and tasks. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+219. Which tool allows makers to build custom agents with their own instructions and knowledge sources?
+A) Exchange admin center
+B) SharePoint Migration Tool
+C) Microsoft Copilot Studio
+D) Microsoft Planner
+Correct: C
+Rationale: Copilot Studio enables makers to build custom agents with defined instructions and knowledge. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+220. What capability does the Copilot Studio agent builder provide within Microsoft 365 Copilot?
+A) A way to manage user mailboxes
+B) A way to create retention policies
+C) A way to assign Conditional Access policies
+D) A lightweight way to create agents grounded in selected knowledge such as SharePoint sites
+Correct: D
+Rationale: The agent builder offers a streamlined way to create agents grounded in chosen knowledge sources. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+221. Which statement best describes how agents handle data access for the user invoking them?
+A) Agents respect the user's existing permissions to the knowledge they reference
+B) Agents grant access to all tenant data
+C) Agents ignore permissions
+D) Agents require permissions to be disabled
+Correct: A
+Rationale: Agents honor the invoking user's permissions to referenced knowledge, consistent with Copilot. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+222. What is a primary benefit of grounding an agent in a specific SharePoint site?
+A) The agent makes the site public
+B) The agent can answer questions using that site's content while respecting permissions
+C) The agent increases the site's storage
+D) The agent removes the site's permissions
+Correct: B
+Rationale: Grounding an agent in a site lets it answer from that content while honoring permissions. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+223. Which licensing model allows users to access Microsoft 365 Copilot features through a per-user subscription?
+A) A pay-as-you-go meter only
+B) A device license only
+C) A per-user Microsoft 365 Copilot license
+D) A SharePoint storage add-on
+Correct: C
+Rationale: A per-user Copilot license provides access to Copilot features for assigned users. (Reference: Enable users for Microsoft 365 Copilot)
+
+[Type: Single]
+224. Which consumption model lets organizations pay for certain agent usage based on messages consumed rather than per user?
+A) A per-mailbox license
+B) A device-based license
+C) A SharePoint storage plan
+D) A pay-as-you-go model billed through an Azure subscription
+Correct: D
+Rationale: Pay-as-you-go bills certain agent usage by consumption through an Azure subscription. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+225. What does grounding refer to when describing Copilot and agent responses?
+A) Connecting responses to relevant, permissioned organizational data
+B) Summarizing responses into bullet points
+C) Restricting responses to public web data
+D) Translating responses into other languages
+Correct: A
+Rationale: Grounding connects responses to relevant organizational data the user is permitted to access. (Reference: Microsoft 365 Copilot architecture)
+
+[Type: Single]
+226. Which capability lets a user create a simple agent without writing code?
+A) A PowerShell script only
+B) The no-code or low-code experience in Copilot Studio agent builder
+C) A SharePoint site template
+D) A Conditional Access policy
+Correct: B
+Rationale: The agent builder offers a no-code or low-code experience for creating agents. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+227. What is one way agents extend the value of Microsoft 365 Copilot?
+A) They store the organization's files
+B) They assign user licenses
+C) They tailor responses to a specific business scenario or knowledge domain
+D) They translate documents automatically
+Correct: C
+Rationale: Agents tailor Copilot to specific scenarios and knowledge domains, extending its value. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+228. Which of these is a valid knowledge source an agent can be grounded in?
+A) A user's local desktop folder
+B) A Conditional Access policy
+C) An Exchange mail flow rule
+D) A SharePoint site or document library
+Correct: D
+Rationale: Agents can be grounded in knowledge sources such as SharePoint sites or libraries. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+229. What happens to an agent's answers if the underlying content is updated?
+A) Answers reflect the current content because the agent references the live knowledge source
+B) Answers never change
+C) The agent stops working
+D) The content is deleted
+Correct: A
+Rationale: Because agents reference live knowledge, their answers reflect current content. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+230. Which Microsoft 365 Copilot capability helps users get started by suggesting prompts?
+A) A mailbox cleanup tool
+B) Built-in prompt suggestions and Copilot Prompt Gallery style guidance
+C) A license assignment wizard
+D) A Conditional Access wizard
+Correct: B
+Rationale: Copilot offers built-in prompt suggestions and guidance to help users get value quickly. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+231. Which statement about agents and tenant data boundaries is accurate?
+A) Agent data is shared across all tenants
+B) Agent data is published publicly
+C) Agent data stays within the organization's service boundary, consistent with Copilot
+D) Agent data trains shared models for other tenants
+Correct: C
+Rationale: Agents keep data within the tenant boundary, consistent with Copilot privacy commitments. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+232. Which of the following best describes the relationship between Microsoft 365 Copilot and agents?
+A) Agents replace Copilot entirely
+B) Agents are unrelated to Copilot
+C) Agents disable Copilot
+D) Agents extend and customize Copilot for specific tasks and knowledge
+Correct: D
+Rationale: Agents build on Copilot, extending and customizing it for specific tasks and knowledge. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+233. Why might an organization build a custom agent rather than rely solely on default Copilot?
+A) To focus the assistant on a defined knowledge base and produce more relevant answers
+B) To give all users administrator access
+C) To reduce the number of licenses needed
+D) To store more files in SharePoint
+Correct: A
+Rationale: Custom agents focus on a defined knowledge base, improving relevance for targeted scenarios. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+234. Which experience is most appropriate for a business user to quickly build an agent grounded in a few SharePoint sites?
+A) The Exchange admin center
+B) Copilot Studio agent builder
+C) A SharePoint Migration Tool job
+D) A Conditional Access policy
+Correct: B
+Rationale: The agent builder lets business users quickly create agents grounded in selected sites. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+235. What is a key consideration when choosing between per-user licensing and pay-as-you-go for agents?
+A) The number of SharePoint sites in the tenant
+B) The user's time zone
+C) Expected usage patterns and whether consumption-based billing fits the workload
+D) The number of admin centers used
+Correct: C
+Rationale: Choosing a model depends on usage patterns and whether consumption billing suits the workload. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+236. Which capability allows Copilot to summarize a Teams meeting for participants?
+A) A retention policy
+B) A Conditional Access policy
+C) A distribution list
+D) Copilot's meeting summarization grounded in the meeting content
+Correct: D
+Rationale: Copilot can summarize meetings using the meeting content for participants. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+237. What does it mean that an agent is scoped?
+A) Its knowledge and behavior are limited to defined sources and instructions
+B) It can access every tenant
+C) It has no limits
+D) It is disabled
+Correct: A
+Rationale: A scoped agent is constrained to defined knowledge sources and instructions. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+238. Which is an accurate statement about Copilot responses and organizational permissions?
+A) Copilot uses all tenant data regardless of permissions
+B) Copilot only uses data the user is permitted to access when generating responses
+C) Copilot disables permissions
+D) Copilot requires admin rights for every user
+Correct: B
+Rationale: Copilot generates responses only from data the user is permitted to access. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Multi]
+239. Which of the following are capabilities of Microsoft 365 Copilot? Choose three.
+A) Drafting content in Word
+B) Managing user licenses
+C) Summarizing email in Outlook
+D) Provisioning SharePoint sites
+E) Analyzing data in Excel
+Correct: A, C, E
+Rationale: Copilot drafts, summarizes, and analyzes within the apps; it does not patch servers or configure firewalls. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Multi]
+240. Which statements about agents are correct? Choose three.
+A) They share data across all tenants
+B) They can be grounded in specific knowledge sources
+C) They respect the user's permissions
+D) They can be built in Copilot Studio
+E) They require disabling sensitivity labels
+Correct: B, C, D
+Rationale: Agents are grounded, permission-aware, and built in Copilot Studio; they do not share across tenants or disable labels. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Multi]
+241. Which licensing or consumption options are associated with Copilot and agents? Choose two.
+A) Per-user Microsoft 365 Copilot license
+B) Per-device license
+C) Pay-as-you-go consumption for certain agent usage
+D) Per-mailbox license
+Correct: A, C
+Rationale: Per-user licensing and pay-as-you-go consumption are valid options; printer and firewall licenses are not. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Multi]
+242. Which knowledge sources can be used to ground an agent? Choose two.
+A) SharePoint sites
+B) Conditional Access policies
+C) Distribution lists
+D) Document libraries
+Correct: A, D
+Rationale: Agents can be grounded in SharePoint sites and libraries, not hardware. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Multi]
+243. Which tasks can Microsoft 365 Copilot assist with directly in the apps? Choose three.
+A) Summarizing a long document
+B) Assigning user licenses
+C) Configuring retention policies
+D) Generating a first draft
+E) Suggesting formulas or analysis
+Correct: A, D, E
+Rationale: Copilot summarizes, drafts, and suggests analysis; it does not manage firewalls or image laptops. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Multi]
+244. Which statements about grounding are correct? Choose two.
+A) Grounding shares data publicly
+B) Grounding ties responses to permissioned organizational data
+C) Grounding improves relevance and accuracy
+D) Grounding disables permissions
+Correct: B, C
+Rationale: Grounding ties responses to permissioned data and improves relevance; it does not share data or disable permissions. (Reference: Microsoft 365 Copilot architecture)
+
+[Type: Single]
+245. A team wants an assistant that answers only from their project's SharePoint site and follows specific response guidelines. Which approach fits best?
+A) Use default Copilot with no customization
+B) Email the site contents to each member
+C) Build a custom agent in Copilot Studio grounded in that site with tailored instructions
+D) Create a distribution list for the project
+Correct: C
+Rationale: A custom agent grounded in the site with tailored instructions meets the focused requirement. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+246. An organization expects highly variable agent usage and wants to avoid paying per user for occasional users. Which model should they consider?
+A) Per-user licensing for every employee
+B) A one-time perpetual license
+C) Disabling agents entirely
+D) Pay-as-you-go consumption billed through an Azure subscription
+Correct: D
+Rationale: Pay-as-you-go suits variable usage by billing consumption rather than per user. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+247. A business user with no coding experience needs to create a simple agent grounded in two SharePoint sites. Which tool should they use?
+A) Copilot Studio agent builder
+B) A PowerShell script
+C) The SharePoint admin center
+D) An Exchange transport rule
+Correct: A
+Rationale: The agent builder provides a no-code path for business users to create grounded agents. (Reference: Build agents with Copilot Studio agent builder)
+
+[Type: Single]
+248. Leadership asks whether building agents will expose data beyond what users can already access. What is the accurate response?
+A) Agents expose all tenant data to everyone
+B) Agents respect existing permissions, so users only see content they are already allowed to access
+C) Agents disable permissions
+D) Agents require removing sensitivity labels
+Correct: B
+Rationale: Agents honor existing permissions, so they do not expand the data a user can access. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+249. Which Microsoft 365 Copilot feature helps a user catch up on a long email thread in Outlook?
+A) A mailbox quota increase
+B) An Outlook rule that sorts messages
+C) Thread summarization that condenses the conversation into key points
+D) A distribution list for the thread
+Correct: C
+Rationale: Copilot can summarize a long email thread into key points so the user can catch up quickly. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+250. A department wants an assistant that uses both a SharePoint knowledge base and follows a fixed tone and set of approved responses. Which capability best supports building it?
+A) A retention policy
+B) A distribution list
+C) A Conditional Access policy
+D) A custom agent in Copilot Studio with grounded knowledge and tailored instructions
+Correct: D
+Rationale: A Copilot Studio agent with grounded knowledge and tailored instructions supports both the knowledge and tone requirements. (Reference: Get started with Microsoft Copilot Studio)
+
+[Type: Single]
+251. Where do administrators manage Microsoft 365 Copilot settings for the organization?
+A) In the Microsoft 365 admin center
+B) In the SharePoint admin center
+C) In the Exchange admin center
+D) In each user's Outlook settings
+Correct: A
+Rationale: Copilot organizational settings are managed in the Microsoft 365 admin center. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+252. Which administrative task is required so that a specific user can use Microsoft 365 Copilot?
+A) Increase the user's mailbox quota
+B) Assign the user a Microsoft 365 Copilot license
+C) Add the user to a distribution list
+D) Create a Conditional Access policy for the user
+Correct: B
+Rationale: A user must be assigned a Copilot license to use Copilot. (Reference: Enable users for Microsoft 365 Copilot)
+
+[Type: Single]
+253. What is the most efficient way to assign Copilot licenses to a large, changing group of users?
+A) Assign each license manually every day
+B) Email users an activation code
+C) Use group-based licensing
+D) Create a separate tenant
+Correct: C
+Rationale: Group-based licensing assigns and removes Copilot licenses automatically as membership changes. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+254. Which tool helps administrators understand Microsoft 365 Copilot adoption and usage across the organization?
+A) The Microsoft 365 message center
+B) The Azure cost management blade
+C) The Exchange mail flow dashboard
+D) The Copilot usage and adoption dashboard
+Correct: D
+Rationale: The Copilot dashboard reports adoption and usage across the organization. (Reference: Microsoft Copilot Dashboard (usage and adoption))
+
+[Type: Single]
+255. Before broadly enabling Copilot, which preparation task most reduces data exposure risk?
+A) Review and remediate oversharing and permissions in SharePoint
+B) Assign more Copilot licenses
+C) Enable auto-labeling after rollout
+D) Increase SharePoint storage quotas
+Correct: A
+Rationale: Remediating oversharing and permissions reduces the risk that Copilot surfaces sensitive content broadly. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+256. Which administrative action ensures that Copilot interactions are retained for compliance?
+A) Assign additional Copilot licenses
+B) Configure Purview retention for Copilot interactions stored in mailboxes
+C) Create a distribution list
+D) Disable Microsoft Graph
+Correct: B
+Rationale: Purview retention applied to mailbox-stored interactions ensures compliance retention. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+257. How can an administrator make Copilot interactions discoverable for an investigation?
+A) Search the SharePoint recycle bin
+B) Review the Conditional Access reports
+C) Use Purview eDiscovery, since interactions are stored in the user's mailbox
+D) Export the Copilot dashboard
+Correct: C
+Rationale: Because interactions are stored in the mailbox, Purview eDiscovery makes them discoverable. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+258. Which task is part of preparing identity for Copilot?
+A) Increasing every user's mailbox size
+B) Creating distribution lists for each team
+C) Assigning every user a SharePoint site
+D) Ensuring users have appropriate Microsoft Entra ID accounts and access
+Correct: D
+Rationale: Users need appropriate Entra ID accounts and access as part of Copilot readiness. (Reference: Enable users for Microsoft 365 Copilot)
+
+[Type: Single]
+259. What does assigning a Copilot license to a user accomplish?
+A) It enables Copilot features for that user across supported apps
+B) It deletes the user's mailbox
+C) It removes the user from all groups
+D) It disables the user's account
+Correct: A
+Rationale: Assigning a Copilot license enables Copilot features for that user across supported apps. (Reference: Enable users for Microsoft 365 Copilot)
+
+[Type: Single]
+260. Which capability would an administrator use to apply sensitivity labels at scale before Copilot rollout?
+A) A SharePoint Migration Tool job
+B) Auto-labeling policies in Microsoft Purview
+C) A Conditional Access policy
+D) A retention label
+Correct: B
+Rationale: Auto-labeling applies sensitivity labels at scale, strengthening protection before rollout. (Reference: Learn about sensitivity labels)
+
+[Type: Single]
+261. What is the purpose of reviewing the Copilot dashboard after deployment?
+A) To assign more licenses automatically
+B) To configure mail flow rules
+C) To track adoption and identify where additional enablement is needed
+D) To provision SharePoint sites
+Correct: C
+Rationale: The dashboard tracks adoption and highlights where more enablement may be needed. (Reference: Microsoft Copilot Dashboard (usage and adoption))
+
+[Type: Single]
+262. Which administrative practice supports responsible Copilot use across the organization?
+A) Disabling Microsoft Entra ID
+B) Removing all retention
+C) Granting Everyone full control
+D) Combining permissions hygiene, labeling, DLP, and retention
+Correct: D
+Rationale: Permissions hygiene, labeling, DLP, and retention together support responsible Copilot use. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+263. Which step is necessary to remove Copilot access from a user who changes roles?
+A) Unassign the Copilot license, directly or through group membership
+B) Delete the user's account
+C) Convert the user's mailbox to shared
+D) Disable the tenant
+Correct: A
+Rationale: Unassigning the license, directly or via group, removes Copilot access appropriately. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+264. Which Microsoft 365 admin center area is most relevant to enabling and managing Copilot for users?
+A) The mail flow rules
+B) The Copilot settings and user license management areas
+C) The SharePoint sharing settings
+D) The Exchange transport rules
+Correct: B
+Rationale: Copilot settings and license management in the admin center govern user enablement. (Reference: Microsoft 365 Copilot overview)
+
+[Type: Single]
+265. Why should administrators validate data governance before enabling Copilot broadly?
+A) Copilot requires governance to be removed
+B) Governance has no effect on Copilot
+C) Copilot honors permissions, so poor governance can lead to unintended data exposure
+D) Copilot disables governance automatically
+Correct: C
+Rationale: Because Copilot honors permissions, weak governance can cause unintended exposure. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+266. Which task helps measure the business impact of Copilot after rollout?
+A) Counting the number of mailboxes
+B) Checking SharePoint storage usage
+C) Reviewing Conditional Access logs
+D) Reviewing usage and adoption metrics in the Copilot dashboard
+Correct: D
+Rationale: Usage and adoption metrics in the dashboard help measure Copilot's impact. (Reference: Microsoft Copilot Dashboard (usage and adoption))
+
+[Type: Single]
+267. Which is an accurate description of the admin effort to enable Copilot for a department?
+A) Assign licenses, often through a group, and confirm readiness of data and identity
+B) Increase each user's mailbox quota
+C) Create a new tenant for the department
+D) Remove all sensitivity labels
+Correct: A
+Rationale: Enabling Copilot involves assigning licenses and confirming data and identity readiness. (Reference: Enable users for Microsoft 365 Copilot)
+
+[Type: Single]
+268. What is a benefit of using group-based licensing for Copilot in a large organization?
+A) It encrypts all mailboxes
+B) Licenses follow group membership automatically, reducing manual administration
+C) It deletes inactive users
+D) It replaces Conditional Access
+Correct: B
+Rationale: Group-based licensing reduces manual work by following group membership automatically. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Multi]
+269. Which tasks are part of enabling Microsoft 365 Copilot for users? Choose three.
+A) Increase mailbox quotas
+B) Assign Copilot licenses
+C) Create distribution lists
+D) Confirm users have appropriate Entra ID accounts
+E) Prepare and govern organizational data
+Correct: B, D, E
+Rationale: Licensing, identity readiness, and data governance are core enablement tasks. (Reference: Enable users for Microsoft 365 Copilot)
+
+[Type: Multi]
+270. Which Purview-related tasks support a compliant Copilot deployment? Choose three.
+A) Disable Microsoft Entra ID
+B) Remove all audit logging
+C) Apply sensitivity labels
+D) Configure DLP
+E) Set retention for interactions
+Correct: C, D, E
+Rationale: Labeling, DLP, and retention support compliant deployment; the others weaken it. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Multi]
+271. Which methods can assign Copilot licenses to users? Choose two.
+A) Emailing an activation code
+B) Direct assignment to individual users
+C) Adding users to a distribution list
+D) Group-based licensing
+Correct: B, D
+Rationale: Direct and group-based assignment are valid; activation codes and registry edits are not. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Multi]
+272. Which outcomes can administrators observe through the Copilot dashboard? Choose two.
+A) Mailbox storage usage
+B) License assignment errors
+C) Adoption trends
+D) Usage across apps
+Correct: C, D
+Rationale: The dashboard shows adoption and usage; it does not show patch levels or firewall rules. (Reference: Microsoft Copilot Dashboard (usage and adoption))
+
+[Type: Single]
+273. An administrator must enable Copilot for the entire Sales team with minimal ongoing effort as staff join and leave. Which approach should they take?
+A) Assign licenses manually each week
+B) Create a new tenant for Sales
+C) Assign the Copilot license to the Sales group using group-based licensing
+D) Email each new hire an activation link
+Correct: C
+Rationale: Group-based licensing keeps Copilot assignments aligned to Sales membership automatically. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+274. Which administrative readiness step helps confirm that Copilot will return appropriate results for users?
+A) Assigning every user a larger mailbox
+B) Creating distribution lists for each team
+C) Enabling auto-labeling for all content
+D) Validating that SharePoint and content permissions reflect who should access each item
+Correct: D
+Rationale: Validating that permissions reflect intended access confirms Copilot will surface only appropriate content. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+275. An administrator wants to understand which Microsoft 365 apps see the most Copilot usage. Where should they look?
+A) The Copilot usage and adoption dashboard
+B) The Exchange admin center
+C) The SharePoint admin center
+D) The Microsoft 365 message center
+Correct: A
+Rationale: The Copilot dashboard breaks down usage, including by app, to inform adoption efforts. (Reference: Microsoft Copilot Dashboard (usage and adoption))
+
+[Type: Single]
+276. Northwind scenario: What is the most efficient way to enable Copilot for the Marketing division as staffing changes?
+A) Assign each license by hand monthly
+B) Assign Copilot licenses to the Marketing group using group-based licensing
+C) Create a separate tenant for Marketing
+D) Email activation codes to each user
+Correct: B
+Rationale: Group-based licensing efficiently enables Copilot and adjusts automatically as staffing changes. (Reference: Group-based licensing in Microsoft Entra ID)
+
+[Type: Single]
+277. Northwind scenario: Which capability ensures Copilot interactions are retained and discoverable for compliance?
+A) A Conditional Access policy
+B) A sensitivity label
+C) Purview retention and eDiscovery over mailbox-stored interactions
+D) A distribution list
+Correct: C
+Rationale: Mailbox-stored interactions support Purview retention and eDiscovery for compliance. (Reference: Purview protections for Copilot and generative AI)
+
+[Type: Single]
+278. Northwind scenario: How should the team measure adoption after launch?
+A) Count the number of mailboxes
+B) Review Conditional Access logs
+C) Check SharePoint storage usage
+D) Review the Copilot usage and adoption dashboard
+Correct: D
+Rationale: The Copilot dashboard provides adoption and usage metrics to measure rollout success. (Reference: Microsoft Copilot Dashboard (usage and adoption))
+
+[Type: Single]
+279. Where can administrators manage agents that have been integrated into Microsoft 365?
+A) In the Microsoft 365 admin center, under the integrated apps and Copilot agent management area
+B) In the SharePoint admin center
+C) In the Exchange admin center
+D) In each user's Outlook settings
+Correct: A
+Rationale: Integrated agents are managed in the Microsoft 365 admin center under integrated apps and Copilot agent management. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+280. Which administrative action controls whether an agent is available to users in the organization?
+A) Assigning more user licenses
+B) Approving, deploying, or blocking the agent through admin management
+C) Creating a distribution list
+D) Configuring a retention policy
+Correct: B
+Rationale: Admins approve, deploy, or block agents to control their availability to users. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+281. Which platform is used to administer agents built on Power Platform, including environments and policies?
+A) The Exchange admin center
+B) The SharePoint admin center
+C) The Power Platform admin center
+D) The Microsoft 365 message center
+Correct: C
+Rationale: The Power Platform admin center administers environments, policies, and agents built on Power Platform. (Reference: Power Platform admin center documentation)
+
+[Type: Single]
+282. What is the purpose of a data loss prevention policy in the Power Platform admin center as it relates to agents?
+A) It assigns licenses to agents
+B) It encrypts agent responses
+C) It deletes unused agents automatically
+D) It governs which connectors agents and apps can use to limit data exposure
+Correct: D
+Rationale: Power Platform DLP policies restrict connector usage to limit data exposure for agents and apps. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Single]
+283. Which administrative concept isolates agent development, testing, and production in Power Platform?
+A) Environments
+B) Distribution lists
+C) Retention policies
+D) Sensitivity labels
+Correct: A
+Rationale: Environments separate development, testing, and production workloads in Power Platform. (Reference: Power Platform admin center documentation)
+
+[Type: Single]
+284. How can an administrator prevent a specific agent from being used in the organization?
+A) Assign the user a new license
+B) Block or remove the agent through admin management
+C) Create a distribution list
+D) Increase the mailbox quota
+Correct: B
+Rationale: Admins can block or remove an agent to prevent its use. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+285. Which task is part of governing agents at scale?
+A) Assigning every user a license
+B) Creating a mailbox for each agent
+C) Applying connector and DLP policies in the Power Platform admin center
+D) Increasing SharePoint storage
+Correct: C
+Rationale: Connector and DLP policies in the Power Platform admin center govern agents at scale. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Single]
+286. What is a reason to review agents that makers have created in the tenant?
+A) To reduce the number of licenses
+B) To free up mailbox storage
+C) To speed up search indexing
+D) To ensure they comply with data governance and security policies
+Correct: D
+Rationale: Reviewing maker-created agents ensures compliance with governance and security policies. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+287. Which administrative capability helps ensure agents only access approved data sources?
+A) Connector governance and DLP policies in Power Platform
+B) A Conditional Access policy
+C) A sensitivity label
+D) A mailbox retention rule
+Correct: A
+Rationale: Connector governance and DLP policies restrict agents to approved data sources. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Single]
+288. What does deploying an agent to users involve from an administrative standpoint?
+A) Assigning each user a new mailbox
+B) Making the approved agent available to the intended users or groups
+C) Creating a distribution list
+D) Disabling Conditional Access for the users
+Correct: B
+Rationale: Deployment makes an approved agent available to the intended users or groups. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+289. Which statement about agents and existing security controls is accurate?
+A) Agents bypass all controls
+B) Agents disable permissions
+C) Agents operate within existing permissions and governance controls
+D) Agents require controls to be removed
+Correct: C
+Rationale: Agents operate within existing permissions and governance, consistent with Copilot. (Reference: Data, privacy, and security for Microsoft 365 Copilot)
+
+[Type: Single]
+290. Which admin center would you use to set a tenant-wide policy restricting which connectors agents can combine?
+A) The Exchange admin center
+B) The SharePoint admin center
+C) The Microsoft 365 admin center
+D) The Power Platform admin center
+Correct: D
+Rationale: The Power Platform admin center sets connector policies that restrict how agents combine data sources. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Single]
+291. What is a governance benefit of using environments in Power Platform for agents?
+A) They contain and separate workloads so policies can be applied appropriately
+B) They assign licenses automatically
+C) They create distribution lists
+D) They encrypt stored data
+Correct: A
+Rationale: Environments contain and separate workloads, enabling appropriate policy application. (Reference: Power Platform admin center documentation)
+
+[Type: Multi]
+292. Which administrative tasks apply to managing agents? Choose three.
+A) Approving or blocking agents
+B) Deploying agents to users or groups
+C) Assigning user licenses
+D) Creating distribution lists
+E) Applying connector and DLP policies
+Correct: A, B, E
+Rationale: Approving or blocking, deploying, and applying policies are agent management tasks. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Multi]
+293. Which capabilities are administered in the Power Platform admin center? Choose two.
+A) Environments
+B) Data loss prevention policies
+C) Conditional Access policies
+D) Sensitivity labels
+Correct: A, B
+Rationale: Environments and DLP policies are administered in the Power Platform admin center. (Reference: Power Platform admin center documentation)
+
+[Type: Multi]
+294. Which practices help govern agents responsibly? Choose three.
+A) Restrict connectors with DLP policies
+B) Grant all connectors to everyone
+C) Review maker-created agents
+D) Use environments to separate workloads
+E) Disable audit logging
+Correct: A, C, D
+Rationale: Connector restrictions, agent review, and environment separation support responsible governance. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Multi]
+295. Which outcomes can administrators achieve through agent management in the Microsoft 365 admin center? Choose two.
+A) Control agent availability to users
+B) Assign licenses
+C) Block specific agents
+D) Create distribution lists
+Correct: A, C
+Rationale: Admins control availability and block agents; server patching and firewalls are out of scope. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+296. An administrator must ensure that a newly built agent cannot send organizational data to an unapproved external service. Which control should they apply?
+A) A Conditional Access policy
+B) A data loss prevention policy in the Power Platform admin center that restricts connectors
+C) A sensitivity label
+D) A mailbox retention rule
+Correct: B
+Rationale: A Power Platform DLP policy restricting connectors prevents agents from using unapproved services. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Single]
+297. Several makers have created agents and leadership wants oversight before they reach users. Which administrative approach fits?
+A) Assign every maker a new license
+B) Create a distribution list for makers
+C) Review and approve or block agents through admin management before deployment
+D) Remove all sensitivity labels
+Correct: C
+Rationale: Reviewing and approving or blocking agents gives leadership oversight before deployment. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+298. Tailspin scenario: Which approach gives leadership oversight before maker-built agents reach users?
+A) Assign every user a license
+B) Create a distribution list
+C) Disable Conditional Access
+D) Review and approve or block agents through admin management before deployment
+Correct: D
+Rationale: Admin review with approve or block control provides oversight before deployment. (Reference: Manage Copilot agents in the Microsoft 365 admin center)
+
+[Type: Single]
+299. Tailspin scenario: Which control prevents agents from sending data to unapproved external services?
+A) Data loss prevention policies in the Power Platform admin center that restrict connectors
+B) Conditional Access policies
+C) Sensitivity labels
+D) Mailbox retention rules
+Correct: A
+Rationale: Power Platform DLP connector policies prevent agents from using unapproved services. (Reference: Data loss prevention policies in Power Platform)
+
+[Type: Single]
+300. Tailspin scenario: Which capability separates agent development from production?
+A) Conditional Access policies
+B) Power Platform environments
+C) Distribution lists
+D) Sensitivity labels
+Correct: B
+Rationale: Environments in Power Platform separate development from production workloads. (Reference: Power Platform admin center documentation)</script>
+
+<!-- ============ Top bar ============ -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="h-9 w-9 rounded-xl bg-brand-600 text-white grid place-items-center font-extrabold shadow-sm">CB</div>
+      <div>
+        <h1 class="font-extrabold text-slate-900 leading-tight">CBT Studio</h1>
+        <p class="text-[11px] text-slate-500 -mt-0.5 hidden sm:block">Paste from Word → Parse → Weighted Test Engine</p>
+      </div>
+    </div>
+    <div id="topRightMeta" class="text-sm text-slate-500"></div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+
+  <!-- ====================================================================== -->
+  <!-- SETUP SCREEN                                                            -->
+  <!-- ====================================================================== -->
+  <section id="setupScreen" class="fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- Left: Importer -->
+      <div class="lg:col-span-3 space-y-5">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <div class="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h2 class="text-lg font-bold text-slate-900">1 · Bulk Word-Document Importer</h2>
+              <p class="text-sm text-slate-500 mt-0.5">Paste questions copied straight from a Word document. The parser auto-detects Single, Multi and True/False types.</p>
+            </div>
+            <div class="flex gap-2">
+              <button id="loadBankBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-brand-50 text-brand-700 hover:bg-brand-100 border border-brand-200">Load AB-900 Bank (300 Q)</button>
+              <button id="loadSampleBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">Reset sample</button>
+            </div>
+          </div>
+
+          <textarea id="bulkInput" spellcheck="false"
+            class="mt-4 w-full h-80 rounded-xl border border-slate-300 bg-slate-50 p-4 font-mono text-[12.5px] leading-relaxed text-slate-700 focus:ring-2 focus:ring-brand-400 focus:border-brand-400 outline-none resize-y"></textarea>
+
+          <div class="mt-3 flex items-center justify-between flex-wrap gap-3">
+            <button id="parseBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 shadow-sm">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10"/></svg>
+              Parse &amp; Validate
+            </button>
+            <div id="parseStatus" class="text-sm font-medium text-slate-400">Not parsed yet</div>
+          </div>
+
+          <!-- Parser errors -->
+          <div id="parseErrors" class="mt-3 hidden"></div>
+          <!-- Parser summary -->
+          <div id="parseSummary" class="mt-3 hidden"></div>
+        </div>
+
+        <!-- Format help -->
+        <details class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <summary class="cursor-pointer font-semibold text-slate-800 select-none">Accepted paste format &amp; validation rules</summary>
+          <div class="mt-3 text-sm text-slate-600 space-y-3">
+            <p>Group questions under a <code class="px-1 bg-slate-100 rounded">[Category: Name]</code> header. Each question may declare <code class="px-1 bg-slate-100 rounded">[Type: Single|Multi|TrueFalse]</code> (auto-detected when omitted).</p>
+            <pre class="bg-slate-900 text-slate-100 rounded-xl p-3 text-[11.5px] overflow-x-auto">[Category: Mathematics]
+[Type: Single]
+1. What is the value of x if 2x + 5 = 15?
+Image: https://example.com/photo.png
+A) 3
+B) 5
+C) 10
+D) 7
+Correct: B
+Rationale: Subtract 5, then divide by 2.</pre>
+            <ul class="list-disc pl-5 space-y-1">
+              <li><b>Rule 1:</b> every letter in <code>Correct:</code> must exist in the options.</li>
+              <li><b>Rule 2:</b> <code>Multi</code> answers are comma-separated (e.g. <code>A, C</code>) and need 2+ keys.</li>
+              <li><b>Rule 3:</b> every question must sit under a declared <code>[Category]</code>.</li>
+              <li>True/False questions can omit options — <code>True</code>/<code>False</code> are generated automatically.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <!-- Right: Configuration -->
+      <div class="lg:col-span-2 space-y-5">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <h2 class="text-lg font-bold text-slate-900">2 · Configuration</h2>
+
+          <!-- Exam length -->
+          <div class="mt-4">
+            <label class="block text-sm font-semibold text-slate-700">Exam length (total questions)</label>
+            <p class="text-xs text-slate-400 mb-2">Choose a target between 50 and 70.</p>
+            <div class="flex items-center gap-3">
+              <input id="examLen" type="range" min="50" max="70" value="60" class="flex-1 accent-brand-600">
+              <input id="examLenNum" type="number" min="50" max="70" value="60" class="w-20 rounded-lg border border-slate-300 px-2 py-1.5 text-center font-semibold focus:ring-2 focus:ring-brand-400 outline-none">
+            </div>
+          </div>
+
+          <!-- Mode -->
+          <div class="mt-5">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Mode</label>
+            <div id="modeToggle" class="grid grid-cols-2 gap-2">
+              <button data-mode="exam" class="mode-btn px-3 py-2.5 rounded-xl border text-sm font-semibold transition">
+                <div class="font-bold">Exam Mode</div>
+                <div class="text-[11px] font-normal opacity-70">Timed · feedback at the end</div>
+              </button>
+              <button data-mode="practice" class="mode-btn px-3 py-2.5 rounded-xl border text-sm font-semibold transition">
+                <div class="font-bold">Practice Mode</div>
+                <div class="text-[11px] font-normal opacity-70">Instant answers &amp; rationale</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Weights -->
+          <div class="mt-5">
+            <div class="flex items-center justify-between">
+              <label class="block text-sm font-semibold text-slate-700">Knowledge-area weights</label>
+              <button id="evenWeights" class="text-xs font-semibold text-brand-600 hover:underline">Distribute evenly</button>
+            </div>
+            <p class="text-xs text-slate-400 mb-2">Detected from parsed categories. Must total exactly 100%.</p>
+            <div id="weightFields" class="space-y-2">
+              <div class="text-sm text-slate-400 italic py-3 text-center border border-dashed border-slate-200 rounded-xl">Parse questions to detect categories…</div>
+            </div>
+            <div id="weightTotal" class="mt-3 hidden text-sm font-semibold flex items-center justify-between px-1"></div>
+          </div>
+        </div>
+
+        <!-- Start -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+          <button id="startBtn" disabled
+            class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-brand-600 text-white font-bold hover:bg-brand-700 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3l14 9-14 9V3z"/></svg>
+            Start Test
+          </button>
+          <div id="startHint" class="mt-2 text-center text-xs text-slate-400">Parse a valid bank and set weights to 100%.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- TEST SCREEN                                                             -->
+  <!-- ====================================================================== -->
+  <section id="testScreen" class="hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- Main question column -->
+      <div class="lg:col-span-3 order-2 lg:order-1">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <!-- progress -->
+          <div class="px-5 pt-4">
+            <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+              <span id="qPosition">Question 1 of 60</span>
+              <span id="qCategory" class="px-2 py-0.5 rounded-full bg-brand-50 text-brand-700"></span>
+            </div>
+            <div class="mt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div id="progressBar" class="h-full bg-brand-500 transition-all" style="width:0%"></div>
+            </div>
+          </div>
+
+          <div id="questionBody" class="p-5"></div>
+
+          <!-- nav -->
+          <div class="border-t border-slate-100 px-5 py-3 flex items-center justify-between gap-3">
+            <button id="prevBtn" class="px-4 py-2 rounded-xl border border-slate-300 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-40">← Previous</button>
+            <button id="flagBtn" class="px-3 py-2 rounded-xl text-sm font-semibold text-amber-600 hover:bg-amber-50 border border-amber-200">⚑ Flag</button>
+            <button id="nextBtn" class="px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800">Next →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: grid + meta -->
+      <div class="lg:col-span-1 order-1 lg:order-2 space-y-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+          <div class="flex items-center justify-between">
+            <div id="timerWrap" class="text-sm font-semibold text-slate-700"></div>
+            <div id="modeBadge" class="text-[11px] font-bold px-2 py-1 rounded-full"></div>
+          </div>
+          <div class="mt-3 grid grid-cols-3 gap-2 text-center text-[11px]">
+            <div class="rounded-lg bg-slate-50 py-2"><div id="statAnswered" class="font-bold text-slate-900 text-base">0</div>Answered</div>
+            <div class="rounded-lg bg-slate-50 py-2"><div id="statFlagged" class="font-bold text-amber-600 text-base">0</div>Flagged</div>
+            <div class="rounded-lg bg-slate-50 py-2"><div id="statLeft" class="font-bold text-slate-900 text-base">0</div>Left</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+          <h3 class="text-sm font-bold text-slate-800 mb-2">Question grid</h3>
+          <div id="questionGrid" class="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-5 gap-1.5"></div>
+          <div class="mt-3 grid grid-cols-2 gap-1.5 text-[10.5px] text-slate-500">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-brand-500 inline-block"></span>Answered</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-white border border-slate-300 inline-block"></span>Unanswered</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-400 inline-block"></span>Flagged</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded ring-2 ring-slate-900 inline-block"></span>Current</div>
+          </div>
+          <button id="submitBtn" class="mt-4 w-full px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 shadow-sm">Submit test</button>
+          <button id="quitBtn" class="mt-2 w-full px-4 py-2 rounded-xl text-slate-500 font-semibold text-xs hover:bg-slate-50">Quit to setup</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- RESULTS SCREEN                                                          -->
+  <!-- ====================================================================== -->
+  <section id="resultsScreen" class="hidden fade-in"></section>
+</main>
+
+<footer class="max-w-7xl mx-auto px-4 sm:px-6 py-8 text-center text-xs text-slate-400">
+  CBT Studio · single-file build · paste-from-Word parser, weighted randomization &amp; review engine.
+</footer>
+
+<script>
+/* ============================================================================
+   CBT STUDIO — vanilla JS engine
+   ========================================================================== */
+"use strict";
+
+/* ---------- default sample (all three types) ---------- */
+const SAMPLE_TEXT = `[Category: Mathematics]
+[Type: Single]
+1. What is the value of x if 2x + 5 = 15?
+Image: https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400
+A) 3
+B) 5
+C) 10
+D) 7
+Correct: B
+Rationale: Subtract 5 from both sides to get 2x = 10, then divide by 2 to get x = 5.
+
+[Category: Science]
+[Type: Multi]
+2. Which of the following are noble gases? Select all that apply.
+A) Helium
+B) Oxygen
+C) Neon
+D) Nitrogen
+Correct: A, C
+Rationale: Helium and Neon have full outer electron shells and are noble gases.
+
+[Category: Geography]
+[Type: TrueFalse]
+3. The Sahara is the largest hot desert in the world.
+Correct: True
+Rationale: The Sahara spans most of North Africa and is the world's largest hot desert.
+
+[Category: Science]
+[Type: Single]
+4. Which planet is known as the Red Planet?
+A) Venus
+B) Jupiter
+C) Mars
+D) Saturn
+Correct: C
+Rationale: Mars looks red because of iron oxide (rust) covering its surface.
+
+[Category: Mathematics]
+[Type: Multi]
+5. Which of these numbers are prime? Select all that apply.
+A) 9
+B) 7
+C) 2
+D) 15
+Correct: B, C
+Rationale: 7 and 2 are prime; 9 = 3x3 and 15 = 3x5 are composite.
+
+[Category: Geography]
+[Type: Single]
+6. What is the capital of Australia?
+A) Sydney
+B) Melbourne
+C) Canberra
+D) Perth
+Correct: C
+Rationale: Canberra is the purpose-built capital city of Australia.`;
+
+/* ============================================================================
+   PARSER
+   ========================================================================== */
+const TYPE_ALIASES = {
+  'single':'Single','singlechoice':'Single','single choice':'Single','mcq':'Single','radio':'Single',
+  'multi':'Multi','multiple':'Multi','multiselect':'Multi','multiple select':'Multi','multi-select':'Multi','checkbox':'Multi',
+  'truefalse':'TrueFalse','true/false':'TrueFalse','tf':'TrueFalse','true false':'TrueFalse','boolean':'TrueFalse'
+};
+
+function normalizeType(raw){
+  if(!raw) return null;
+  const k = raw.toLowerCase().replace(/[_]/g,'').trim();
+  return TYPE_ALIASES[k] || TYPE_ALIASES[k.replace(/\s+/g,'')] || null;
+}
+
+/**
+ * Parse raw pasted text -> { questions:[], categories:[], errors:[] }
+ * Each question: {id, category, type, stem, image, options:[{key,text}], correct:[keys], rationale}
+ */
+function parseBank(raw){
+  const lines = raw.replace(/\r\n?/g,'\n').split('\n');
+  const errors = [];
+  const questions = [];
+  const categoriesOrder = [];
+  let curCategory = null;
+  let pendingType = null;
+  let q = null;          // current question being built
+  let curLineNo = 0;
+
+  const reCategory = /^\s*\[\s*category\s*:\s*(.+?)\s*\]\s*$/i;
+  const reType     = /^\s*\[\s*type\s*:\s*(.+?)\s*\]\s*$/i;
+  const reImage    = /^\s*(?:\[\s*)?image\s*:?\s*\]?\s*[:=]?\s*(https?:\/\/\S+)\s*$/i;
+  const reImage2   = /^\s*image\s*[:=]\s*(\S+)\s*$/i;
+  const reQuestion = /^\s*(\d+)\s*[\.\)]\s+(.*)$/;
+  const reOption   = /^\s*([A-Ha-h])\s*[\)\.\-:]\s+(.+)$/;
+  const reCorrect  = /^\s*correct(?:\s+answer)?s?\s*[:=]\s*(.+)$/i;
+  const reRationale= /^\s*(?:rationale|explanation|explain)\s*[:=]\s*(.*)$/i;
+
+  function pushQuestion(){
+    if(q){ finalizeQuestion(q); questions.push(q); q = null; }
+  }
+
+  for(let i=0;i<lines.length;i++){
+    curLineNo = i+1;
+    const lineRaw = lines[i];
+    const line = lineRaw.trim();
+    if(line === '') continue;
+
+    let m;
+    // Category header
+    if((m = line.match(reCategory))){
+      pushQuestion();
+      curCategory = m[1].trim();
+      if(!categoriesOrder.includes(curCategory)) categoriesOrder.push(curCategory);
+      pendingType = null;
+      continue;
+    }
+    // Type header
+    if((m = line.match(reType))){
+      const t = normalizeType(m[1]);
+      if(!t){ errors.push({line:curLineNo, msg:`Unknown question type "${m[1]}". Use Single, Multi or TrueFalse.`}); }
+      pendingType = t;
+      continue;
+    }
+    // Image (standalone) — only meaningful when a question is open
+    if((m = line.match(reImage)) || (m = line.match(reImage2))){
+      if(q){ q.image = m[1]; }
+      continue;
+    }
+    // New question
+    if((m = line.match(reQuestion))){
+      pushQuestion();
+      q = {
+        id: parseInt(m[1],10),
+        displayNum: m[1],
+        category: curCategory,
+        declaredType: pendingType,
+        type: pendingType,
+        stem: m[2].trim(),
+        image: null,
+        options: [],
+        correctRaw: null,
+        correct: [],
+        rationale: '',
+        line: curLineNo,
+        _phase: 'stem'
+      };
+      pendingType = null; // consumed
+      continue;
+    }
+    // Option
+    if(q && (m = line.match(reOption))){
+      q.options.push({ key: m[1].toUpperCase(), text: m[2].trim() });
+      q._phase = 'options';
+      continue;
+    }
+    // Correct
+    if(q && (m = line.match(reCorrect))){
+      q.correctRaw = m[1].trim();
+      q._phase = 'meta';
+      continue;
+    }
+    // Rationale
+    if(q && (m = line.match(reRationale))){
+      q.rationale = m[1].trim();
+      q._phase = 'rationale';
+      continue;
+    }
+    // Continuation lines
+    if(q){
+      if(q._phase === 'stem'){ q.stem += ' ' + line; }
+      else if(q._phase === 'rationale'){ q.rationale += ' ' + line; }
+      else if(q._phase === 'options' && q.options.length){ q.options[q.options.length-1].text += ' ' + line; }
+      else { /* stray meta line, ignore */ }
+      continue;
+    }
+    // Stray line before any question
+    // (silently ignored — likely a title/heading in the pasted doc)
+  }
+  pushQuestion();
+
+  /* ---------- finalize + validate each question ---------- */
+  function finalizeQuestion(q){
+    // Infer / fill TrueFalse options
+    if(q.type === 'TrueFalse' && q.options.length === 0){
+      q.options = [{key:'A',text:'True'},{key:'B',text:'False'}];
+    }
+    // Type inference when not declared
+    if(!q.type){
+      const looksTF = q.options.length===2 &&
+        q.options.every(o=>/^(true|false)$/i.test(o.text.trim()));
+      if(looksTF) q.type = 'TrueFalse';
+    }
+  }
+
+  // Validation pass
+  questions.forEach(q=>{
+    const label = `Question ${q.displayNum}`;
+
+    // Rule 3: category present
+    if(!q.category){
+      errors.push({line:q.line, msg:`${label}: no category declared above it. Add a [Category: …] header (Validation Rule 3).`});
+    }
+
+    // Stem present
+    if(!q.stem){
+      errors.push({line:q.line, msg:`${label}: missing question text.`});
+    }
+
+    // Parse correct keys
+    if(q.correctRaw == null){
+      errors.push({line:q.line, msg:`${label}: missing "Correct:" line.`});
+    } else {
+      const optKeys = q.options.map(o=>o.key);
+      const tokens = q.correctRaw.split(/[,;/]| and /i).map(s=>s.trim()).filter(Boolean);
+      const resolved = [];
+      tokens.forEach(tok=>{
+        let key = null;
+        const up = tok.toUpperCase();
+        if(/^[A-H]$/.test(up) && optKeys.includes(up)){ key = up; }
+        else {
+          // match against option text (handles True/False or full text answers)
+          const found = q.options.find(o=>o.text.trim().toLowerCase() === tok.toLowerCase());
+          if(found) key = found.key;
+        }
+        if(!key){
+          // Rule 1: answer key not present in options
+          errors.push({line:q.line, msg:`${label}: answer "${tok}" is not one of the available options (${optKeys.join(', ')||'none'}). (Validation Rule 1)`});
+        } else if(!resolved.includes(key)){
+          resolved.push(key);
+        }
+      });
+      q.correct = resolved;
+    }
+
+    // Infer type if still unknown, from number of correct answers
+    if(!q.type){
+      q.type = q.correct.length > 1 ? 'Multi' : 'Single';
+    }
+
+    // Need at least 2 options for a real question
+    if(q.type !== 'TrueFalse' && q.options.length < 2){
+      errors.push({line:q.line, msg:`${label}: needs at least two options (found ${q.options.length}).`});
+    }
+
+    // Type-specific rules
+    if(q.type === 'Multi'){
+      // Rule 2: multiple, comma separated, all keys exist
+      if(q.correct.length < 2){
+        errors.push({line:q.line, msg:`${label}: a Multi question must have 2+ correct answers separated by commas, e.g. "A, C". (Validation Rule 2)`});
+      }
+    } else if(q.type === 'Single' || q.type === 'TrueFalse'){
+      if(q.correct.length > 1){
+        errors.push({line:q.line, msg:`${label}: a ${q.type} question must have exactly one correct answer (found ${q.correct.length}). Use [Type: Multi] for multiple.`});
+      }
+    }
+  });
+
+  // Duplicate id detection within categories is fine; ignore.
+  return { questions, categories: categoriesOrder, errors };
+}
+
+/* ============================================================================
+   APP STATE
+   ========================================================================== */
+const App = {
+  parsed: null,          // {questions, categories, errors}
+  weights: {},           // category -> percent
+  mode: 'exam',
+  examLen: 60,
+  test: null             // active test object
+};
+
+/* ---------- element helpers ---------- */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+/* ============================================================================
+   SETUP: parse handling
+   ========================================================================== */
+function doParse(){
+  const raw = $('#bulkInput').value;
+  const result = parseBank(raw);
+  App.parsed = result;
+
+  const errBox = $('#parseErrors');
+  const sumBox = $('#parseSummary');
+
+  if(result.errors.length){
+    errBox.classList.remove('hidden');
+    const items = result.errors.slice(0,40).map(e=>
+      `<li class="flex gap-2"><span class="text-rose-500 font-bold shrink-0">line ${e.line}</span><span>${esc(e.msg)}</span></li>`
+    ).join('');
+    const more = result.errors.length>40 ? `<li class="text-rose-400 italic">…and ${result.errors.length-40} more</li>` : '';
+    errBox.innerHTML = `
+      <div class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+        <div class="font-bold text-rose-700 text-sm mb-2">✗ ${result.errors.length} validation problem${result.errors.length>1?'s':''} found</div>
+        <ul class="text-[12.5px] text-rose-700 space-y-1 max-h-56 overflow-y-auto">${items}${more}</ul>
+      </div>`;
+  } else {
+    errBox.classList.add('hidden'); errBox.innerHTML='';
+  }
+
+  const ok = result.errors.length===0 && result.questions.length>0;
+  $('#parseStatus').textContent = ok
+    ? `✓ ${result.questions.length} questions, ${result.categories.length} categories`
+    : (result.questions.length? 'Fix errors to continue' : 'No questions detected');
+  $('#parseStatus').className = 'text-sm font-medium ' + (ok?'text-emerald-600':'text-rose-500');
+
+  if(result.questions.length){
+    // per category + type counts
+    const byCat = {};
+    result.questions.forEach(q=>{
+      const c = q.category||'(uncategorized)';
+      byCat[c] = byCat[c]||{total:0,Single:0,Multi:0,TrueFalse:0};
+      byCat[c].total++; byCat[c][q.type]=(byCat[c][q.type]||0)+1;
+    });
+    const tCount = {Single:0,Multi:0,TrueFalse:0};
+    result.questions.forEach(q=>tCount[q.type]++);
+    sumBox.classList.remove('hidden');
+    sumBox.innerHTML = `
+      <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+        <div class="flex flex-wrap gap-2 mb-3">
+          ${chip('Single',tCount.Single,'bg-blue-100 text-blue-700')}
+          ${chip('Multi',tCount.Multi,'bg-purple-100 text-purple-700')}
+          ${chip('True/False',tCount.TrueFalse,'bg-teal-100 text-teal-700')}
+          ${chip('Total',result.questions.length,'bg-slate-800 text-white')}
+        </div>
+        <div class="grid gap-1.5">
+          ${Object.entries(byCat).map(([c,v])=>`
+            <div class="flex items-center justify-between text-[12.5px] bg-white rounded-lg px-3 py-1.5 border border-slate-100">
+              <span class="font-semibold text-slate-700 truncate pr-2">${esc(c)}</span>
+              <span class="text-slate-400 shrink-0">${v.total} q · ${v.Single}S / ${v.Multi}M / ${v.TrueFalse}TF</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  } else {
+    sumBox.classList.add('hidden');
+  }
+
+  buildWeightFields(ok ? result.categories : []);
+  refreshStartButton();
+}
+function chip(label,n,cls){ return `<span class="text-xs font-bold px-2.5 py-1 rounded-full ${cls}">${esc(label)}: ${n}</span>`; }
+
+/* ============================================================================
+   SETUP: weights
+   ========================================================================== */
+function buildWeightFields(categories){
+  const box = $('#weightFields');
+  const totalRow = $('#weightTotal');
+  box.innerHTML='';
+  if(!categories.length){
+    box.innerHTML = `<div class="text-sm text-slate-400 italic py-3 text-center border border-dashed border-slate-200 rounded-xl">Parse questions to detect categories…</div>`;
+    totalRow.classList.add('hidden');
+    return;
+  }
+  // initialise weights proportional to pool size if not set, else even
+  const pools = poolCounts();
+  const newWeights = {};
+  categories.forEach(c=> newWeights[c] = (App.weights[c]!=null)? App.weights[c] : null);
+  if(categories.some(c=>newWeights[c]==null)){
+    distributeEven(categories, newWeights);
+  }
+  App.weights = newWeights;
+
+  categories.forEach(c=>{
+    const row = el('div','flex items-center gap-2');
+    row.innerHTML = `
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-semibold text-slate-700 truncate">${esc(c)}</div>
+        <div class="text-[11px] text-slate-400">${pools[c]||0} in pool</div>
+      </div>
+      <div class="relative">
+        <input type="number" min="0" max="100" data-cat="${esc(c)}" value="${App.weights[c]}"
+          class="weight-input w-20 rounded-lg border border-slate-300 px-2 py-1.5 text-right font-semibold focus:ring-2 focus:ring-brand-400 outline-none">
+        <span class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none hidden">%</span>
+      </div>`;
+    box.appendChild(row);
+  });
+  box.querySelectorAll('.weight-input').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      App.weights[inp.dataset.cat] = inp.value===''?0:Math.max(0,Math.min(100,parseFloat(inp.value)||0));
+      updateWeightTotal();
+      refreshStartButton();
+    });
+  });
+  updateWeightTotal();
+}
+
+function distributeEven(categories, target){
+  const n = categories.length;
+  const base = Math.floor(100/n);
+  let rem = 100 - base*n;
+  categories.forEach((c,i)=>{ target[c] = base + (i<rem?1:0); });
+}
+
+function updateWeightTotal(){
+  const totalRow = $('#weightTotal');
+  totalRow.classList.remove('hidden');
+  const cats = App.parsed ? App.parsed.categories : [];
+  const sum = cats.reduce((s,c)=> s + (parseFloat(App.weights[c])||0), 0);
+  const ok = Math.abs(sum-100) < 0.001;
+  totalRow.innerHTML = `<span class="text-slate-500">Total</span>
+    <span class="${ok?'text-emerald-600':'text-rose-500'}">${(+sum.toFixed(2))}% ${ok?'✓':'(must equal 100%)'}</span>`;
+  return ok;
+}
+
+function poolCounts(){
+  const pools = {};
+  if(!App.parsed) return pools;
+  App.parsed.questions.forEach(q=>{
+    const c = q.category;
+    pools[c]=(pools[c]||0)+1;
+  });
+  return pools;
+}
+
+/* ============================================================================
+   SETUP: start button gating
+   ========================================================================== */
+function refreshStartButton(){
+  const btn = $('#startBtn');
+  const hint = $('#startHint');
+  const parsedOk = App.parsed && App.parsed.errors.length===0 && App.parsed.questions.length>0;
+  const weightsOk = parsedOk && updateWeightTotalSilent();
+  const ok = parsedOk && weightsOk;
+  btn.disabled = !ok;
+  if(!App.parsed || !App.parsed.questions.length){ hint.textContent='Parse a valid bank to begin.'; }
+  else if(App.parsed.errors.length){ hint.textContent='Resolve the validation errors above.'; }
+  else if(!weightsOk){ hint.textContent='Adjust knowledge-area weights to total exactly 100%.'; }
+  else { hint.textContent='Ready — '+App.examLen+' questions, '+(App.mode==='exam'?'Exam':'Practice')+' mode.'; }
+}
+function updateWeightTotalSilent(){
+  const cats = App.parsed ? App.parsed.categories : [];
+  const sum = cats.reduce((s,c)=> s + (parseFloat(App.weights[c])||0), 0);
+  return Math.abs(sum-100) < 0.001;
+}
+
+/* ============================================================================
+   WEIGHTED RANDOMIZATION ENGINE
+   ========================================================================== */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+/**
+ * Allocate `total` questions across categories by weight using the
+ * largest-remainder method, clamped to each category's available pool.
+ * Returns { alloc:{cat:count}, achieved, shortfall, notes:[] }
+ */
+function allocate(total){
+  const cats = App.parsed.categories.slice();
+  const pools = poolCounts();
+  const notes = [];
+
+  // ideal real-valued share
+  const ideal = {};
+  cats.forEach(c=> ideal[c] = (total * (parseFloat(App.weights[c])||0))/100 );
+
+  // floor + remainder
+  const alloc = {};
+  let assigned = 0;
+  const remainders = [];
+  cats.forEach(c=>{
+    const f = Math.floor(ideal[c]);
+    alloc[c] = f; assigned += f;
+    remainders.push({c, r: ideal[c]-f});
+  });
+  // distribute leftover by largest remainder
+  let leftover = total - assigned;
+  remainders.sort((a,b)=> b.r - a.r);
+  for(let i=0;i<remainders.length && leftover>0;i++){ alloc[remainders[i].c]++; leftover--; }
+
+  // clamp to pool, collect deficit
+  let deficit = 0;
+  cats.forEach(c=>{
+    const cap = pools[c]||0;
+    if(alloc[c] > cap){ deficit += alloc[c]-cap; alloc[c]=cap; }
+  });
+  // redistribute deficit to categories with spare pool (largest spare first)
+  while(deficit > 0){
+    const spare = cats
+      .map(c=>({c, room:(pools[c]||0)-alloc[c]}))
+      .filter(x=>x.room>0)
+      .sort((a,b)=> b.room - a.room);
+    if(!spare.length) break;
+    let moved=false;
+    for(const s of spare){ if(deficit<=0) break; alloc[s.c]++; deficit--; moved=true; }
+    if(!moved) break;
+  }
+
+  const achieved = cats.reduce((s,c)=>s+alloc[c],0);
+  if(achieved < total){
+    notes.push(`Only ${achieved} of ${total} questions could be drawn — the question pool is too small for the requested weighting. Add more questions or lower the exam length.`);
+  }
+  return { alloc, achieved, notes };
+}
+
+function buildTest(){
+  const total = App.examLen;
+  const { alloc, achieved, notes } = allocate(total);
+
+  // group questions by category
+  const byCat = {};
+  App.parsed.questions.forEach(q=>{ (byCat[q.category]=byCat[q.category]||[]).push(q); });
+
+  let picked = [];
+  Object.entries(alloc).forEach(([cat,n])=>{
+    if(n<=0) return;
+    const pool = shuffle(byCat[cat]||[]);
+    picked = picked.concat(pool.slice(0,n));
+  });
+  // final shuffle of the assembled exam, then assign sequential numbers
+  picked = shuffle(picked).map((q,i)=>({
+    ...q,
+    seq: i+1,
+    response: [],     // selected keys
+    flagged: false,
+    visited: false
+  }));
+
+  App.test = {
+    questions: picked,
+    idx: 0,
+    mode: App.mode,
+    alloc,
+    notes,
+    startTime: Date.now(),
+    durationSec: App.mode==='exam' ? picked.length*60 : null, // 60s/question for exam
+    submitted: false,
+    timerId: null
+  };
+  return App.test;
+}
+
+/* ============================================================================
+   TEST RUNTIME
+   ========================================================================== */
+function startTest(){
+  if($('#startBtn').disabled) return;
+  buildTest();
+  $('#setupScreen').classList.add('hidden');
+  $('#resultsScreen').classList.add('hidden');
+  $('#testScreen').classList.remove('hidden');
+  window.scrollTo(0,0);
+
+  // mode badge
+  const badge = $('#modeBadge');
+  if(App.test.mode==='exam'){ badge.textContent='EXAM'; badge.className='text-[11px] font-bold px-2 py-1 rounded-full bg-rose-100 text-rose-700'; }
+  else { badge.textContent='PRACTICE'; badge.className='text-[11px] font-bold px-2 py-1 rounded-full bg-emerald-100 text-emerald-700'; }
+
+  if(App.test.notes.length){
+    // surface allocation note as a temporary banner inside question body later
+  }
+
+  buildGrid();
+  startTimer();
+  renderQuestion();
+  updateStats();
+}
+
+function startTimer(){
+  const wrap = $('#timerWrap');
+  if(App.test.mode!=='exam'){ wrap.innerHTML='⏱ <span class="text-slate-400">Untimed practice</span>'; return; }
+  function tick(){
+    const elapsed = Math.floor((Date.now()-App.test.startTime)/1000);
+    const left = App.test.durationSec - elapsed;
+    if(left<=0){ wrap.innerHTML='⏱ <span class="text-rose-600 font-bold">Time up</span>'; submitTest(true); return; }
+    const m = Math.floor(left/60), s = left%60;
+    const danger = left<60;
+    wrap.innerHTML = `⏱ <span class="font-bold ${danger?'text-rose-600':'text-slate-800'}">${m}:${String(s).padStart(2,'0')}</span>`;
+  }
+  tick();
+  App.test.timerId = setInterval(tick,1000);
+}
+
+function curQ(){ return App.test.questions[App.test.idx]; }
+
+function renderQuestion(){
+  const q = curQ();
+  q.visited = true;
+  const body = $('#questionBody');
+  const total = App.test.questions.length;
+
+  $('#qPosition').textContent = `Question ${q.seq} of ${total}`;
+  $('#qCategory').textContent = q.category || '';
+  $('#progressBar').style.width = ((q.seq/total)*100)+'%';
+  $('#prevBtn').disabled = App.test.idx===0;
+  $('#nextBtn').textContent = App.test.idx===total-1 ? 'Review →' : 'Next →';
+  $('#flagBtn').className = 'px-3 py-2 rounded-xl text-sm font-semibold border ' +
+    (q.flagged ? 'bg-amber-400 text-white border-amber-400' : 'text-amber-600 hover:bg-amber-50 border-amber-200');
+
+  const isMulti = q.type==='Multi';
+  const inputType = isMulti ? 'checkbox' : 'radio';
+  const practice = App.test.mode==='practice';
+  const answered = q.response.length>0;
+  const showFeedback = practice && answered;
+
+  const typeTag = {
+    'Single':'<span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">SINGLE CHOICE</span>',
+    'Multi':'<span class="text-[11px] font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-700">MULTIPLE SELECT — choose all that apply</span>',
+    'TrueFalse':'<span class="text-[11px] font-bold px-2 py-0.5 rounded bg-teal-100 text-teal-700">TRUE / FALSE</span>'
+  }[q.type];
+
+  const optionsHtml = q.options.map(o=>{
+    const checked = q.response.includes(o.key);
+    let stateCls = 'border-slate-200 hover:border-brand-300 hover:bg-brand-50/40';
+    let mark = '';
+    if(showFeedback){
+      const isCorrect = q.correct.includes(o.key);
+      if(isCorrect){ stateCls='border-emerald-400 bg-emerald-50'; mark='<span class="ml-auto text-emerald-600 font-bold text-sm">✓ correct</span>'; }
+      else if(checked && !isCorrect){ stateCls='border-rose-400 bg-rose-50'; mark='<span class="ml-auto text-rose-600 font-bold text-sm">✗ your pick</span>'; }
+      else { stateCls='border-slate-200 opacity-80'; }
+    } else if(checked){
+      stateCls='border-brand-500 bg-brand-50 ring-1 ring-brand-300';
+    }
+    return `
+      <label class="flex items-center gap-3 rounded-xl border-2 px-4 py-3 cursor-pointer transition ${stateCls}">
+        <input type="${inputType}" name="opt" value="${o.key}" ${checked?'checked':''} ${showFeedback?'disabled':''}
+          class="h-4 w-4 shrink-0 accent-brand-600">
+        <span class="font-bold text-slate-400 w-5 shrink-0">${o.key}</span>
+        <span class="text-slate-700">${esc(o.text)}</span>
+        ${mark}
+      </label>`;
+  }).join('');
+
+  const imageBlock = q.image ? `
+    <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
+      <img src="${esc(q.image)}" alt="Question illustration" class="w-full h-full object-cover max-h-80"
+        onerror="this.closest('.qimage-wrap').style.display='none'">
+    </div>` : '';
+
+  const split = q.image;
+  const noteBanner = (App.test.idx===0 && App.test.notes.length) ?
+    `<div class="mb-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 text-[12.5px] px-4 py-2">${esc(App.test.notes[0])}</div>` : '';
+
+  const feedbackBlock = showFeedback ? `
+    <div class="mt-4 rounded-xl border ${isAnswerCorrect(q)?'border-emerald-200 bg-emerald-50':'border-rose-200 bg-rose-50'} p-4">
+      <div class="font-bold text-sm ${isAnswerCorrect(q)?'text-emerald-700':'text-rose-700'}">
+        ${isAnswerCorrect(q)?'✓ Correct':'✗ Incorrect'} — answer: ${q.correct.join(', ')}
+      </div>
+      ${q.rationale?`<div class="mt-1.5 text-[13px] text-slate-600 leading-relaxed">${esc(q.rationale)}</div>`:''}
+    </div>` : '';
+
+  body.innerHTML = `
+    ${noteBanner}
+    <div class="grid ${split?'md:grid-cols-2':''} gap-5 items-start">
+      <div class="qimage-wrap ${split?'':'hidden'} order-1 md:order-2">${imageBlock}</div>
+      <div class="order-2 md:order-1">
+        <div class="mb-2">${typeTag}</div>
+        <h3 class="text-[17px] font-semibold text-slate-900 leading-snug">${esc(q.stem)}</h3>
+        <div class="mt-4 space-y-2.5">${optionsHtml}</div>
+        ${feedbackBlock}
+      </div>
+    </div>`;
+
+  // wire inputs
+  body.querySelectorAll('input[name="opt"]').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      if(isMulti){
+        const set = new Set(q.response);
+        if(inp.checked) set.add(inp.value); else set.delete(inp.value);
+        q.response = Array.from(set);
+      } else {
+        q.response = [inp.value];
+      }
+      updateStats();
+      paintGridCell(App.test.idx);
+      if(App.test.mode==='practice'){ renderQuestion(); } // reveal feedback
+    });
+  });
+}
+
+function isAnswerCorrect(q){
+  if(!q.response.length) return false;
+  if(q.response.length !== q.correct.length) return false;
+  const set = new Set(q.correct);
+  return q.response.every(r=>set.has(r));
+}
+
+/* ---------- grid ---------- */
+function buildGrid(){
+  const grid = $('#questionGrid');
+  grid.innerHTML='';
+  App.test.questions.forEach((q,i)=>{
+    const b = el('button','grid-cell h-8 rounded-lg text-[11px] font-bold border border-slate-200 bg-white text-slate-500 hover:border-brand-400');
+    b.textContent = i+1;
+    b.dataset.i = i;
+    b.addEventListener('click',()=>{ App.test.idx=i; renderQuestion(); paintAllGrid(); window.scrollTo({top:0,behavior:'smooth'}); });
+    grid.appendChild(b);
+  });
+  paintAllGrid();
+}
+function paintGridCell(i){
+  const q = App.test.questions[i];
+  const b = $('#questionGrid').children[i];
+  if(!b) return;
+  let cls = 'grid-cell h-8 rounded-lg text-[11px] font-bold border ';
+  if(i===App.test.idx) cls += 'ring-2 ring-slate-900 ';
+  if(q.flagged){ cls += 'bg-amber-400 text-white border-amber-400'; }
+  else if(q.response.length){ cls += 'bg-brand-500 text-white border-brand-500'; }
+  else { cls += 'bg-white text-slate-500 border-slate-200 hover:border-brand-400'; }
+  b.className = cls;
+}
+function paintAllGrid(){ App.test.questions.forEach((_,i)=>paintGridCell(i)); }
+
+/* ---------- stats ---------- */
+function updateStats(){
+  const qs = App.test.questions;
+  const answered = qs.filter(q=>q.response.length).length;
+  const flagged = qs.filter(q=>q.flagged).length;
+  $('#statAnswered').textContent = answered;
+  $('#statFlagged').textContent = flagged;
+  $('#statLeft').textContent = qs.length - answered;
+}
+
+/* ---------- navigation ---------- */
+function go(delta){
+  const n = App.test.questions.length;
+  let i = App.test.idx + delta;
+  if(i<0) i=0; if(i>=n) i=n-1;
+  App.test.idx = i;
+  renderQuestion(); paintAllGrid();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleFlag(){
+  curQ().flagged = !curQ().flagged;
+  renderQuestion(); paintGridCell(App.test.idx); updateStats();
+}
+
+/* ============================================================================
+   SUBMIT + RESULTS
+   ========================================================================== */
+function submitTest(auto){
+  if(App.test.submitted) return;
+  const unanswered = App.test.questions.filter(q=>!q.response.length).length;
+  if(!auto && unanswered>0){
+    if(!confirm(`You have ${unanswered} unanswered question${unanswered>1?'s':''}. Submit anyway?`)) return;
+  }
+  App.test.submitted = true;
+  if(App.test.timerId) clearInterval(App.test.timerId);
+  App.test.endTime = Date.now();
+  renderResults();
+}
+
+function renderResults(){
+  $('#testScreen').classList.add('hidden');
+  const screen = $('#resultsScreen');
+  screen.classList.remove('hidden');
+  window.scrollTo(0,0);
+
+  const qs = App.test.questions;
+  const correct = qs.filter(isAnswerCorrect).length;
+  const pct = Math.round((correct/qs.length)*100);
+  const elapsed = Math.round(((App.test.endTime||Date.now())-App.test.startTime)/1000);
+  const mm = Math.floor(elapsed/60), ss = elapsed%60;
+  const pass = pct>=70;
+
+  // per category
+  const cat = {};
+  qs.forEach(q=>{
+    const c=q.category||'(none)';
+    cat[c]=cat[c]||{t:0,c:0};
+    cat[c].t++; if(isAnswerCorrect(q)) cat[c].c++;
+  });
+
+  const ring = `conic-gradient(${pass?'#10b981':'#f43f5e'} ${pct*3.6}deg, #e2e8f0 0deg)`;
+
+  const catRows = Object.entries(cat).map(([c,v])=>{
+    const p = Math.round((v.c/v.t)*100);
+    return `
+      <div class="flex items-center gap-3">
+        <div class="w-40 sm:w-56 truncate text-sm font-semibold text-slate-700">${esc(c)}</div>
+        <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+          <div class="h-full ${p>=70?'bg-emerald-500':'bg-amber-500'}" style="width:${p}%"></div>
+        </div>
+        <div class="w-20 text-right text-sm font-semibold text-slate-600">${v.c}/${v.t} · ${p}%</div>
+      </div>`;
+  }).join('');
+
+  const reviewRows = qs.map(q=>{
+    const ok = isAnswerCorrect(q);
+    const yours = q.response.length? q.response.join(', ') : '—';
+    const optMap = {}; q.options.forEach(o=>optMap[o.key]=o.text);
+    return `
+      <details class="rounded-xl border ${ok?'border-emerald-200':'border-rose-200'} bg-white overflow-hidden">
+        <summary class="cursor-pointer select-none px-4 py-3 flex items-center gap-3">
+          <span class="text-[11px] font-bold w-7 h-7 grid place-items-center rounded-lg ${ok?'bg-emerald-100 text-emerald-700':'bg-rose-100 text-rose-700'}">${q.seq}</span>
+          <span class="flex-1 text-sm font-medium text-slate-700 truncate">${esc(q.stem)}</span>
+          <span class="text-[11px] font-bold ${ok?'text-emerald-600':'text-rose-600'}">${ok?'Correct':'Wrong'}</span>
+        </summary>
+        <div class="px-4 pb-4 pt-1 text-[13px] space-y-2">
+          <div class="text-slate-500">${esc(q.category||'')} · ${q.type}</div>
+          <div class="space-y-1">
+            ${q.options.map(o=>{
+              const isC = q.correct.includes(o.key);
+              const isY = q.response.includes(o.key);
+              let c='text-slate-600';
+              if(isC) c='text-emerald-700 font-semibold';
+              else if(isY) c='text-rose-700 line-through';
+              return `<div class="${c}">${o.key}. ${esc(o.text)} ${isC?'✓':''}${isY&&!isC?' ✗ (your pick)':''}</div>`;
+            }).join('')}
+          </div>
+          <div class="text-slate-500">Your answer: <b>${esc(yours)}</b> · Correct: <b>${esc(q.correct.join(', '))}</b></div>
+          ${q.rationale?`<div class="rounded-lg bg-slate-50 border border-slate-100 p-3 text-slate-600 leading-relaxed">${esc(q.rationale)}</div>`:''}
+        </div>
+      </details>`;
+  }).join('');
+
+  screen.innerHTML = `
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex flex-col sm:flex-row items-center gap-6">
+          <div class="relative shrink-0" style="width:140px;height:140px">
+            <div class="w-full h-full rounded-full" style="background:${ring}"></div>
+            <div class="absolute inset-3 bg-white rounded-full grid place-items-center">
+              <div class="text-center">
+                <div class="text-3xl font-extrabold ${pass?'text-emerald-600':'text-rose-600'}">${pct}%</div>
+                <div class="text-[11px] font-semibold text-slate-400">${correct}/${qs.length}</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 text-center sm:text-left">
+            <div class="inline-block text-xs font-bold px-3 py-1 rounded-full ${pass?'bg-emerald-100 text-emerald-700':'bg-rose-100 text-rose-700'}">${pass?'PASS':'BELOW PASS (70%)'}</div>
+            <h2 class="text-2xl font-extrabold text-slate-900 mt-2">${App.test.mode==='exam'?'Exam':'Practice'} complete</h2>
+            <p class="text-sm text-slate-500 mt-1">${correct} correct · ${qs.length-correct} incorrect · time ${mm}:${String(ss).padStart(2,'0')}</p>
+            <div class="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
+              <button id="retakeBtn" class="px-4 py-2 rounded-xl bg-brand-600 text-white font-semibold text-sm hover:bg-brand-700">New test (reshuffle)</button>
+              <button id="backSetupBtn" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm hover:bg-slate-50">Back to setup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <h3 class="font-bold text-slate-900 mb-4">Score by knowledge area</h3>
+        <div class="space-y-3">${catRows}</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-slate-900">Question review</h3>
+          <div class="flex gap-2 text-xs">
+            <button id="expandAll" class="font-semibold text-brand-600 hover:underline">Expand all</button>
+            <button id="collapseAll" class="font-semibold text-slate-400 hover:underline">Collapse</button>
+          </div>
+        </div>
+        <div id="reviewList" class="space-y-2">${reviewRows}</div>
+      </div>
+    </div>`;
+
+  $('#retakeBtn').onclick = ()=>{ startTest(); };
+  $('#backSetupBtn').onclick = ()=>{ gotoSetup(); };
+  $('#expandAll').onclick = ()=> $$('#reviewList details').forEach(d=>d.open=true);
+  $('#collapseAll').onclick = ()=> $$('#reviewList details').forEach(d=>d.open=false);
+}
+
+function gotoSetup(){
+  if(App.test && App.test.timerId) clearInterval(App.test.timerId);
+  $('#testScreen').classList.add('hidden');
+  $('#resultsScreen').classList.add('hidden');
+  $('#setupScreen').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+/* ============================================================================
+   WIRING
+   ========================================================================== */
+function setMode(m){
+  App.mode = m;
+  $$('#modeToggle .mode-btn').forEach(b=>{
+    const active = b.dataset.mode===m;
+    b.className = 'mode-btn px-3 py-2.5 rounded-xl border text-sm font-semibold transition ' +
+      (active ? 'border-brand-500 bg-brand-50 text-brand-700 ring-1 ring-brand-300' : 'border-slate-200 text-slate-500 hover:bg-slate-50');
+  });
+  refreshStartButton();
+}
+
+function init(){
+  // load sample
+  $('#bulkInput').value = SAMPLE_TEXT;
+
+  // exam length sync
+  const range = $('#examLen'), num = $('#examLenNum');
+  function syncLen(v){
+    v = Math.max(50, Math.min(70, parseInt(v)||60));
+    range.value=v; num.value=v; App.examLen=v; refreshStartButton();
+  }
+  range.addEventListener('input', e=>syncLen(e.target.value));
+  num.addEventListener('input', e=>syncLen(e.target.value));
+  num.addEventListener('blur', e=>syncLen(e.target.value));
+
+  // mode
+  $$('#modeToggle .mode-btn').forEach(b=> b.addEventListener('click',()=>setMode(b.dataset.mode)));
+  setMode('exam');
+
+  // buttons
+  $('#parseBtn').addEventListener('click', doParse);
+  $('#evenWeights').addEventListener('click', ()=>{
+    if(!App.parsed || !App.parsed.categories.length) return;
+    const t={}; distributeEven(App.parsed.categories, t); App.weights=t;
+    buildWeightFields(App.parsed.categories); refreshStartButton();
+  });
+  $('#startBtn').addEventListener('click', startTest);
+  $('#loadSampleBtn').addEventListener('click', ()=>{ $('#bulkInput').value=SAMPLE_TEXT; });
+  $('#loadBankBtn').addEventListener('click', ()=>{
+    const bank = document.getElementById('ab900-bank').textContent.trim();
+    $('#bulkInput').value = bank;
+    App.weights = {}; // reset so even-distribution recomputes for new categories
+    doParse();
+    $('#bulkInput').scrollTop = 0;
+  });
+
+  // test nav
+  $('#prevBtn').addEventListener('click', ()=>go(-1));
+  $('#nextBtn').addEventListener('click', ()=>go(1));
+  $('#flagBtn').addEventListener('click', toggleFlag);
+  $('#submitBtn').addEventListener('click', ()=>submitTest(false));
+  $('#quitBtn').addEventListener('click', ()=>{ if(confirm('Quit the test and discard answers?')) gotoSetup(); });
+
+  // keyboard
+  document.addEventListener('keydown', e=>{
+    if($('#testScreen').classList.contains('hidden')) return;
+    if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT') return;
+    if(e.key==='ArrowRight') go(1);
+    else if(e.key==='ArrowLeft') go(-1);
+    else if(e.key==='f'||e.key==='F') toggleFlag();
+    else if(/^[1-9]$/.test(e.key)){
+      const k=parseInt(e.key)-1; const opts=$$('#questionBody input[name="opt"]');
+      if(opts[k]){ opts[k].click(); }
+    }
+  });
+
+  // initial parse so weights/start are ready
+  doParse();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
