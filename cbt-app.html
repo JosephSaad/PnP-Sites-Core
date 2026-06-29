@@ -2816,6 +2816,7 @@ Rationale: Environments in Power Platform separate development from production w
               <button id="examNew" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">＋ New blank exam</button>
               <button id="examExport" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">⬇ Export selected to file</button>
               <button id="examImport" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">⬆ Import exam file</button>
+              <button id="libBackup" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200">🗄 Back up whole library</button>
               <input id="examFile" type="file" accept=".json,.cbt,.txt" class="hidden">
             </div>
             <div id="examLibMsg" class="mt-2 text-xs hidden"></div>
@@ -2905,6 +2906,17 @@ Rationale: Subtract 5, then divide by 2.</pre>
                 <div class="text-[11px] font-normal opacity-70">Instant answers &amp; rationale</div>
               </button>
             </div>
+          </div>
+
+          <!-- Options -->
+          <div class="mt-5">
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input id="shuffleOpts" type="checkbox" checked class="h-4 w-4 accent-brand-600">
+              <span>
+                <span class="block text-sm font-semibold text-slate-700">Shuffle answer options</span>
+                <span class="block text-[11px] text-slate-400">Randomize the order of choices each attempt so answers aren't memorized by position.</span>
+              </span>
+            </label>
           </div>
 
           <!-- Weights -->
@@ -3310,6 +3322,7 @@ const App = {
   weights: {},           // category -> percent
   mode: 'exam',
   examLen: 60,
+  shuffleOptions: true,  // randomize answer-option order per attempt
   test: null,            // active test object
   activeExamId: null     // id of the library exam currently loaded
 };
@@ -3525,7 +3538,38 @@ function exportSelectedExam(){
   libMsg(`Exported "${ex.name}" to ${a.download}.`, 'ok');
 }
 
-// Read an imported exam file (our JSON wrapper or a plain bank .txt) into the library.
+// Download the entire library as a single backup file.
+function exportLibrary(){
+  const lib = loadLibrary();
+  if(!lib.length){ libMsg('Your library is empty — nothing to back up.', 'error'); return; }
+  const payload = { format:'cbt-studio-library', version:1, savedAt:Date.now(),
+                    exams: lib.map(e=>({ name:e.name, savedAt:e.savedAt, text:e.text })) };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = el('a');
+  a.href = url; a.download = 'cbt-studio-library.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  libMsg(`Backed up ${lib.length} exam${lib.length>1?'s':''} to ${a.download}.`, 'ok');
+}
+
+// Restore a whole-library backup, merging valid exams into the library.
+function restoreLibrary(exams){
+  let added = 0, skipped = 0, firstId = null;
+  exams.forEach(e=>{
+    if(!e || typeof e.text !== 'string' || !e.name){ skipped++; return; }
+    const st = examStats(e.text);
+    if(!st.count || !st.valid){ skipped++; return; }
+    const ex = addOrUpdateExam(e.name, e.text);
+    if(!firstId) firstId = ex.id;
+    added++;
+  });
+  renderExamSelect(firstId || $('#examSelect').value);
+  if(firstId) selectExam(firstId);
+  libMsg(`Restored ${added} exam${added!==1?'s':''} from backup${skipped?`, skipped ${skipped} invalid`:''}.`, added?'ok':'error');
+}
+
+// Read an imported file: a whole-library backup, a single-exam wrapper, or a plain bank .txt.
 function importExamFile(file){
   const reader = new FileReader();
   reader.onload = () => {
@@ -3533,6 +3577,10 @@ function importExamFile(file){
     const raw = String(reader.result);
     try{
       const data = JSON.parse(raw);
+      if(data && data.format === 'cbt-studio-library' && Array.isArray(data.exams)){
+        restoreLibrary(data.exams);   // whole-library backup
+        return;
+      }
       if(data && data.format === 'cbt-studio-exam' && typeof data.text === 'string'){
         text = data.text; if(data.name) name = data.name;
       } else if(typeof data === 'string'){ text = data; }
@@ -3738,6 +3786,24 @@ function allocate(total){
   return { alloc, achieved, notes };
 }
 
+// Return a fresh {options, correct} for a test question. When `doShuffle` is
+// true (and it isn't a True/False), the options are randomized and re-lettered
+// A,B,C… with the correct keys remapped to match — so scoring stays valid.
+function prepareOptions(q, doShuffle){
+  if(!doShuffle || q.type === 'TrueFalse'){
+    return { options: q.options.map(o=>({...o})), correct: q.correct.slice() };
+  }
+  const shuffled = shuffle(q.options);
+  const remap = {};                 // old key -> new sequential letter
+  const options = shuffled.map((o,i)=>{
+    const newKey = String.fromCharCode(65 + i); // A, B, C, …
+    remap[o.key] = newKey;
+    return { key: newKey, text: o.text };
+  });
+  const correct = q.correct.map(k => remap[k]).filter(Boolean);
+  return { options, correct };
+}
+
 function buildTest(){
   const total = App.examLen;
   const { alloc, achieved, notes } = allocate(total);
@@ -3752,15 +3818,22 @@ function buildTest(){
     const pool = shuffle(byCat[cat]||[]);
     picked = picked.concat(pool.slice(0,n));
   });
-  // final shuffle of the assembled exam, then assign sequential numbers
-  picked = shuffle(picked).map((q,i)=>({
-    ...q,
-    seq: i+1,
-    response: [],     // selected keys
-    flagged: false,
-    visited: false,
-    revealed: false   // practice-mode feedback shown for this question
-  }));
+  // final shuffle of the assembled exam, then assign sequential numbers.
+  // Each question gets a fresh copy of its options/correct so option-shuffling
+  // never mutates the parsed bank.
+  picked = shuffle(picked).map((q,i)=>{
+    const prepped = prepareOptions(q, App.shuffleOptions);
+    return {
+      ...q,
+      options: prepped.options,
+      correct: prepped.correct,
+      seq: i+1,
+      response: [],     // selected keys
+      flagged: false,
+      visited: false,
+      revealed: false   // practice-mode feedback shown for this question
+    };
+  });
 
   App.test = {
     questions: picked,
@@ -4047,10 +4120,11 @@ function renderResults(){
     const yours = q.response.length? q.response.join(', ') : '—';
     const optMap = {}; q.options.forEach(o=>optMap[o.key]=o.text);
     return `
-      <details class="rounded-xl border ${ok?'border-emerald-200':'border-rose-200'} bg-white overflow-hidden">
+      <details class="review-item rounded-xl border ${ok?'border-emerald-200':'border-rose-200'} bg-white overflow-hidden" data-correct="${ok}" data-flagged="${!!q.flagged}">
         <summary class="cursor-pointer select-none px-4 py-3 flex items-center gap-3">
           <span class="text-[11px] font-bold w-7 h-7 grid place-items-center rounded-lg ${ok?'bg-emerald-100 text-emerald-700':'bg-rose-100 text-rose-700'}">${q.seq}</span>
           <span class="flex-1 text-sm font-medium text-slate-700 truncate">${esc(q.stem)}</span>
+          ${q.flagged?'<span class="text-amber-500 text-sm shrink-0" title="Flagged">⚑</span>':''}
           <span class="text-[11px] font-bold ${ok?'text-emerald-600':'text-rose-600'}">${ok?'Correct':'Wrong'}</span>
         </summary>
         <div class="px-4 pb-4 pt-1 text-[13px] space-y-2">
@@ -4102,21 +4176,49 @@ function renderResults(){
       </div>
 
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center justify-between mb-4 gap-3 flex-wrap">
           <h3 class="font-bold text-slate-900">Question review</h3>
           <div class="flex gap-2 text-xs">
             <button id="expandAll" class="font-semibold text-brand-600 hover:underline">Expand all</button>
             <button id="collapseAll" class="font-semibold text-slate-400 hover:underline">Collapse</button>
           </div>
         </div>
+        <div id="reviewFilter" class="flex flex-wrap gap-1.5 mb-4">
+          <button data-filter="all" class="rev-filter text-xs font-semibold px-3 py-1.5 rounded-lg border">All (${qs.length})</button>
+          <button data-filter="incorrect" class="rev-filter text-xs font-semibold px-3 py-1.5 rounded-lg border">Incorrect (${qs.length-correct})</button>
+          <button data-filter="correct" class="rev-filter text-xs font-semibold px-3 py-1.5 rounded-lg border">Correct (${correct})</button>
+          <button data-filter="flagged" class="rev-filter text-xs font-semibold px-3 py-1.5 rounded-lg border">Flagged (${qs.filter(q=>q.flagged).length})</button>
+        </div>
         <div id="reviewList" class="space-y-2">${reviewRows}</div>
+        <div id="reviewEmpty" class="hidden text-sm text-slate-400 italic text-center py-6">No questions match this filter.</div>
       </div>
     </div>`;
 
   $('#retakeBtn').onclick = ()=>{ startTest(); };
   $('#backSetupBtn').onclick = ()=>{ gotoSetup(); };
-  $('#expandAll').onclick = ()=> $$('#reviewList details').forEach(d=>d.open=true);
+  $('#expandAll').onclick = ()=> $$('#reviewList details:not(.hidden)').forEach(d=>d.open=true);
   $('#collapseAll').onclick = ()=> $$('#reviewList details').forEach(d=>d.open=false);
+
+  // review filter
+  function applyReviewFilter(mode){
+    let shown = 0;
+    $$('#reviewList .review-item').forEach(d=>{
+      const ok = d.dataset.correct === 'true';
+      const flagged = d.dataset.flagged === 'true';
+      const match = mode==='all' || (mode==='incorrect' && !ok) ||
+                    (mode==='correct' && ok) || (mode==='flagged' && flagged);
+      d.classList.toggle('hidden', !match);
+      if(match) shown++;
+    });
+    $('#reviewEmpty').classList.toggle('hidden', shown>0);
+    $$('#reviewFilter .rev-filter').forEach(b=>{
+      const active = b.dataset.filter===mode;
+      b.className = 'rev-filter text-xs font-semibold px-3 py-1.5 rounded-lg border ' +
+        (active ? 'bg-brand-600 text-white border-brand-600' : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50');
+    });
+  }
+  $$('#reviewFilter .rev-filter').forEach(b=> b.addEventListener('click',()=>applyReviewFilter(b.dataset.filter)));
+  applyReviewFilter('all');
 }
 
 function gotoSetup(){
@@ -4156,6 +4258,9 @@ function init(){
   // mode
   $$('#modeToggle .mode-btn').forEach(b=> b.addEventListener('click',()=>setMode(b.dataset.mode)));
   setMode('exam');
+
+  // shuffle options toggle
+  $('#shuffleOpts').addEventListener('change', e=>{ App.shuffleOptions = e.target.checked; });
 
   // buttons
   $('#parseBtn').addEventListener('click', doParse);
@@ -4200,6 +4305,7 @@ function init(){
     libMsg('Blank exam template loaded. Paste your questions, then Save to the library.', 'ok');
   });
   $('#examExport').addEventListener('click', exportSelectedExam);
+  $('#libBackup').addEventListener('click', exportLibrary);
   $('#examImport').addEventListener('click', ()=> $('#examFile').click());
   $('#examFile').addEventListener('change', e=>{
     const file = e.target.files[0];
